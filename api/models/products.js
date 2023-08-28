@@ -1,7 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from 'mongoose';
 
-const productSchema = new Schema(
+const productSchema = new mongoose.Schema(
   {
     name: String,
     description: String,
@@ -16,4 +15,5 @@ const productSchema = new Schema(
   { timestamps: true } // This option should be outside the schema definition object
 );
 
-module.exports = mongoose.model('Product', productSchema);
+const Product = mongoose.model('Product', productSchema);
+export default Product
