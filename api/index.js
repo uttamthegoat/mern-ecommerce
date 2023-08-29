@@ -7,6 +7,7 @@ dotenv.config();
 const connectDB = require("./config/db");
 const CustomError = require("./errors/CustomError");
 const GlobalErrorHandler = require("./middleware/globalErrorHandler");
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -20,6 +21,9 @@ connectDB();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser);
+
+//basic url for using userRoutes
+app.use('/api/users', userRoutes);
 
 // mount routes
 app.get("/", (req, res) => {
