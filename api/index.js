@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db";
 import CustomError from "./errors/CustomError";
 import GlobalErrorHandler from "./middleware/globalErrorHandler";
+const productRoutes = require('./routes/products');
 
 connectDB();
 dotenv.config();
