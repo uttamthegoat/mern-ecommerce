@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const itemSchema = new mongoose.Schema({
   product: {
@@ -9,5 +9,4 @@ const itemSchema = new mongoose.Schema({
   orderState: ["pending", "Out of Delivery", "Shipped", "Delivered"],
 });
 
-const Item = mongoose.model("Item", itemSchema);
-export default Item;
+module.exports = mongoose.model("Item", itemSchema);

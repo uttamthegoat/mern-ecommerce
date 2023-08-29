@@ -1,4 +1,4 @@
-const globalErrorHandler = (error, req, res, next) => {
+module.exports = (error, req, res, next) => {
   error.statusCode = error.statusCode || 500;
   error.success = error.success || false;
   error.message = error.message || "Internal Server Error";
@@ -19,5 +19,3 @@ const globalErrorHandler = (error, req, res, next) => {
     message: error.message,
   });
 };
-
-export default globalErrorHandler;

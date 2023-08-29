@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
+const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: "User",
     },
     address: {
       type: String,
-      required: true
+      required: true,
     },
     city: {
       type: String,
@@ -25,11 +25,10 @@ const addressSchema = new mongoose.Schema(
     phoneNumber: {
       type: Number,
       required: true,
-      maxlength: 10
-    }
+      maxlength: 10,
+    },
   },
   { timestamps: true }
 );
 
-const Address= mongoose.model('Address', addressSchema);
-export default Address
+module.exports = mongoose.model("Address", addressSchema);

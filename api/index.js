@@ -1,13 +1,13 @@
-import express from "express";
-import cookieParser from "cookie-parser";
-import cors from "cors";
-import dotenv from "dotenv";
-import connectDB from "./config/db";
-import CustomError from "./errors/CustomError";
-import GlobalErrorHandler from "./middleware/globalErrorHandler";
-
-connectDB();
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
+// import dotenv = require("dotenv");
+const dotenv = require("dotenv");
 dotenv.config();
+const connectDB = require("./config/db");
+const CustomError = require("./errors/CustomError");
+const GlobalErrorHandler = require("./middleware/globalErrorHandler");
+
 const app = express();
 
 const corsOptions = {
@@ -15,6 +15,7 @@ const corsOptions = {
   // credentials: true,
 };
 
+connectDB();
 // mount middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
