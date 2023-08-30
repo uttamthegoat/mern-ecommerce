@@ -1,35 +1,24 @@
-const express = require('express');
-const multer = require('multer');
-const cloudinary = require('cloudinary').v2;
-
-const app = express();
-const port = 3000;
+const cloudinary = require("cloudinary").v2;
 
 cloudinary.config({
-  cloud_name: 'your_cloud_name',
-  api_key: 'your_api_key',
-  api_secret: 'your_api_secret'
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret,
 });
 
-const upload = multer(); // No storage specified, multer will use the default settings
-
-app.post('/upload', upload.single('image'), async (req, res) => {
+const imageUpload = async () => {
   if (!req.file) {
-    return res.status(400).json({ error: 'No image provided' });
+    return res.status(400).json({ error: "No image provided" });
   }
 
-  try {
-    const result = await cloudinary.uploader.upload(req.file.buffer, {
-      folder: 'Mern-ecommerce/Products',
-    });
+  const transformation = [{ width: 300, height: 300, crop: "crop" }];
 
-    res.json({ url: result.secure_url });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Upload failed' });
-  }
-});
+  const result = await cloudinary.uploader.upload(req.file.buffer, {
+    folder: "Mern-ecommerce/Products",
+    transformation,
+  });
+  const url = result.secure_url;
+  return url;
+};
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+module.exports = imageUpload;
