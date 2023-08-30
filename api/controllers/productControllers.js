@@ -1,66 +1,53 @@
-const Product = require('../models/Product');
+import asyncHandler from '../middleware/asyncHandler'; 
+import Product from '../models/Product'; 
+const uploadImage = require('../utils/imageUpload');
 
-const createProduct = async (req, res) => {
-  try {
-    const { name, description, category, price, productImage, productInStock } = req.body;
+// Create a new product
+const createProduct = asyncHandler(async (req, res) => {
+  const { name, description, category, price, productInStock } = req.body;
 
-    const newProduct = new Product({
-      name,
-      description,
-      category,
-      price,
-      productImage,
-      productInStock,
-    });
-
-    await newProduct.save();
-
-    res.status(201).json({ success: true, product: newProduct });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+  if (!name || !description || !category || !price || !productInStock || !req.file) {
+    return res.status(400).json({ error: 'Invalid data provided' });
   }
-};
 
-const getProducts = async (req, res) => {
-  try {
-    const products = await Product.find().populate('category');
-    res.status(200).json({ success: true, products });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
+  const productImage = await uploadImage(req.file.buffer);
 
-const updateProduct = async (req, res) => {
+  const newProduct = new Product({
+    name,
+    description,
+    category,
+    price,
+    productImage,
+    productInStock,
+  });
+
+  await newProduct.save();
+
+  res.status(201).json({ success: true, product: newProduct });
+});
+
+// Get all products
+const getProducts = asyncHandler(async (req, res) => {
+  const products = await Product.find().populate('category');
+  res.status(200).json({ success: true, products });
+});
+
+// Update a product
+const updateProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const updatedProduct = await Product.findByIdAndUpdate(
-      id,
-      req.body,
-      { new: true }
-    );
+  const updatedProduct = await Product.findByIdAndUpdate(id, req.body, { new: true });
 
-    res.status(200).json({ success: true, product: updatedProduct });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
+  res.status(200).json({ success: true, product: updatedProduct });
+});
 
-const deleteProduct = async (req, res) => {
+// Delete a product
+const deleteProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
-  try {
-    const deletedProduct = await Product.findByIdAndDelete(id);
+  const deletedProduct = await Product.findByIdAndDelete(id);
 
-    res.status(200).json({ success: true, product: deletedProduct });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
+  res.status(200).json({ success: true, product: deletedProduct });
+});
 
-module.exports = {
-  createProduct,
-  getProducts,
-  updateProduct,
-  deleteProduct,
-};
+export { createProduct, getProducts, updateProduct, deleteProduct };
