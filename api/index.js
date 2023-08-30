@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(cookieParser);
 
 //basic url for using userRoutes
-app.use('/api/auth', require('./routes/userRoutes'));
+app.use("/api/auth", require("./routes/userRoutes"));
 
 // mount routes
 app.get("/", (req, res) => {
