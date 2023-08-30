@@ -34,7 +34,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     res.status(200).json({ success: true, message: "Logged out successfully!" });
 });
 
-module.exportss = {
+module.exports= {
     loginUser,
     logoutUser,
 };
