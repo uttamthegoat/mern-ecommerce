@@ -23,12 +23,12 @@ const userSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     nationality: {
       type: String,
-      required: true,
+      // required: true,
       trim: true,
     },
     isAdmin: {
