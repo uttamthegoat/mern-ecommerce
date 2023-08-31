@@ -1,5 +1,4 @@
 const User = require("../models/users");
-const bodyParser = require("body-parser");
 const asyncHandler = require("../middleware/asyncHandler");
 const CustomError = require("../errors/CustomError");
 const generateToken = require("../utils/generateToken");
@@ -47,11 +46,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new CustomError(
-      401,
-      false,
-      "Please register first!"
-    );
+    throw new CustomError(401, false, "Please register first!");
   }
   const comparePassword = await user.matchPasswords(password);
   if (!comparePassword) {
@@ -62,6 +57,7 @@ const loginUser = asyncHandler(async (req, res) => {
     _id: user._id,
     name: user.name,
     email: user.email,
+    message: "Login successfull!",
   });
 });
 

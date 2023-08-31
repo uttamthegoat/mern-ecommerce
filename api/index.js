@@ -18,7 +18,7 @@ connectDB();
 // mount middlewares
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cookieParser);
+app.use(cookieParser());
 // Middleware
 // app.use(bodyParser.json());
 
