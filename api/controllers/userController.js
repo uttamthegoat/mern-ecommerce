@@ -13,8 +13,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     //checking if the user exists
     if (userExists) {
-        res.status(400);
-        throw new Error('User already exists');
+        throw new CustomError(401, false, "User exists");
     }
 
     // If there are no users yet, make this user an admin
@@ -38,7 +37,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
         })
     } else {
-        throw new CustomError(401, false, "Invalid user");
+        throw new CustomError(500, false, "Invalid user");
     }
 });
 
