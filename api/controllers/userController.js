@@ -1,11 +1,49 @@
 const User = require("../models/users");
+const bodyParser = require('body-parser');
 const asyncHandler = require("../middleware/asyncHandler");
 const CustomError = require("../errors/CustomError");
 const generateToken = require("../utils/generateToken");
 
-//@desc Auth user/set token
+//signup
+//@route POST api/auth/signup
+const registerUser = asyncHandler(async (req, res) => {
+    const { name, email, password } = req.body;
+
+    const userExists = await User.findOne({ email });
+
+    //checking if the user exists
+    if (userExists) {
+        res.status(400);
+        throw new Error('User already exists');
+    }
+
+    // If there are no users yet, make this user an admin
+    const isFirstUser = (await User.countDocuments({})) === 0;
+
+    //if user does not exist create a user
+    const user = await User.create({
+        name,
+        email,
+        password,
+        isAdmin: isFirstUser
+    })
+
+
+    if (user) {
+        generateToken(res, user)
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+
+        })
+    } else {
+        throw new CustomError(401, false, "Invalid user");
+    }
+});
+
+//Login User
 //@route POST api/auth/login
-//@access Public
 const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body;
 
@@ -26,15 +64,15 @@ const loginUser = asyncHandler(async (req, res) => {
     })
 });
 
-//@desc logout user
+//logout user
 //@route POST api/auth/logout
-//@access Public
 const logoutUser = asyncHandler(async (req, res) => {
     res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
     res.status(200).json({ success: true, message: "Logged out successfully!" });
 });
 
-module.exports= {
+module.exports = {
+    registerUser,
     loginUser,
     logoutUser,
 };

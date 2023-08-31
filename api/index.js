@@ -19,6 +19,8 @@ connectDB();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser);
+// Middleware
+// app.use(bodyParser.json());
 
 //basic url for using userRoutes
 app.use("/api/auth", require("./routes/userRoutes"));
