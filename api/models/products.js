@@ -1,18 +1,39 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const productSchema = new mongoose.Schema(
   {
-    name: String,
-    description: String,
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    description: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     category: {
       type: Schema.Types.ObjectId,
-      ref: 'Category'
+      ref: "Category",
+      required: true,
     },
-    price: Number,
-    productImage: String,
-    productInStock: Number
+    price: {
+      type: Number,
+      trim: true,
+      required: true,
+    },
+    productImage: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    productInStock: {
+      type: Number,
+      trim: true,
+      required: true,
+    },
   },
   { timestamps: true } // This option should be outside the schema definition object
 );
 
-module.exports = mongoose.model('Product', productSchema);
+module.exports = mongoose.model("Product", productSchema);

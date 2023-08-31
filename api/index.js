@@ -6,7 +6,7 @@ dotenv.config();
 const connectDB = require("./config/db");
 const CustomError = require("./errors/CustomError");
 const GlobalErrorHandler = require("./middleware/globalErrorHandler");
-const port = 5001;
+const port = process.env.PORT;
 
 const app = express();
 

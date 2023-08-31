@@ -14,12 +14,14 @@ const createProduct = asyncHandler(async (req, res) => {
     !productInStock ||
     !req.file
   ) {
-    return res.status(400).json({ error: "Invalid data provided" });
+    return res
+      .status(400)
+      .json({ success: false, message: "Invalid data provided" });
   }
 
-  const productImage = await uploadImage(req.file.buffer);
+  const productImage = await uploadImage(req.file);
 
-  const newProduct = new Product({
+  const product = new Product({
     name,
     description,
     category,
@@ -28,9 +30,13 @@ const createProduct = asyncHandler(async (req, res) => {
     productInStock,
   });
 
-  await newProduct.save();
+  const newProduct = await product.save();
 
-  res.status(201).json({ success: true, product: newProduct });
+  res.status(201).json({
+    success: true,
+    message: "Product successfully added!",
+    product: newProduct,
+  });
 });
 
 // Get all products
