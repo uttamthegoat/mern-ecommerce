@@ -12,7 +12,7 @@ const protect = asyncHandler(async (req, res, next) => {
       message: "Session Expired! Please Login Again!",
     });
   }
-  const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
+  const data = jwt.verify(token, process.env.JWT_SECRET);
   if (!data) {
     res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
     res.status(401).send("Session Expired. Login Again!");
