@@ -17,6 +17,32 @@
 }
 
 body {
+  margin: 0;
   width: 100vw;
-  overflow-x: hidden;
+  width: calc(100vw - 10px);
+  overflow-x: auto;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track styles */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle styles */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
 }
