@@ -1,5 +1,6 @@
+const CustomError = require("../errors/CustomError");
 const asyncHandler = require("../middleware/asyncHandler");
-const Product = require("../models/Product");
+const Product = require("../models/products");
 const uploadImage = require("../utils/imageUpload");
 
 // Create a new product
@@ -14,12 +15,11 @@ const createProduct = asyncHandler(async (req, res) => {
     !productInStock ||
     !req.file
   ) {
-    return res
-      .status(400)
-      .json({ success: false, message: "Invalid data provided" });
+    throw new CustomError(400, false, "Provide Every data!");
   }
 
   const productImage = await uploadImage(req.file);
+  if (!productImage) throw new CustomError(400, false, "Image not found!");
 
   const product = new Product({
     name,
@@ -31,12 +31,20 @@ const createProduct = asyncHandler(async (req, res) => {
   });
 
   const newProduct = await product.save();
+  if (!newProduct) throw new CustomError(400, false, "Product was not saved!");
 
   res.status(201).json({
     success: true,
     message: "Product successfully added!",
     product: newProduct,
   });
+});
+
+// Get a specific product
+const fetchProduct = asyncHandler(async (req, res) => {
+  const { id } = req.body;
+  const product = await Product.findById(id);
+  if (!product) throw new CustomError(400, false, "Product not found!");
 });
 
 // Get all products
@@ -47,7 +55,7 @@ const getProducts = asyncHandler(async (req, res) => {
 
 // Update a product
 const updateProduct = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
 
   const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
     new: true,
@@ -58,11 +66,23 @@ const updateProduct = asyncHandler(async (req, res) => {
 
 // Delete a product
 const deleteProduct = asyncHandler(async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.body;
 
   const deletedProduct = await Product.findByIdAndDelete(id);
+  if (!deletedProduct)
+    throw new CustomError(400, false, "Product is not found!");
 
-  res.status(200).json({ success: true, product: deletedProduct });
+  res.status(200).json({
+    success: true,
+    message: "Product has been successfully deleted!",
+    product: deletedProduct,
+  });
 });
 
-module.exports = { createProduct, getProducts, updateProduct, deleteProduct };
+module.exports = {
+  createProduct,
+  fetchProduct,
+  getProducts,
+  updateProduct,
+  deleteProduct,
+};

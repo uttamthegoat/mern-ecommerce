@@ -23,6 +23,7 @@ app.use(cookieParser());
 
 // mount routes
 app.use("/api/auth", require("./routes/userRoutes"));
+app.use("/api/products", require("./routes/productRoutes"));
 
 app.get("/", (req, res) => {
   res.send("Welcome to Ecommerce server");
