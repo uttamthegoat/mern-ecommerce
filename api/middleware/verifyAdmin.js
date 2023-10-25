@@ -9,7 +9,7 @@ const verifyAdmin = asyncHandler(async (req, res, next) => {
     throw new CustomError(
       404,
       false,
-      "You are not authorised to access this route!"
+      "Only the admin is authorised to access this route!"
     );
   }
 });

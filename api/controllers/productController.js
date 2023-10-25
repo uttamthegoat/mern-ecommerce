@@ -4,7 +4,7 @@ const Product = require("../models/products");
 const uploadImage = require("../utils/imageUpload");
 
 // Create a new product
-const createProduct = asyncHandler(async (req, res) => {
+exports.createProduct = asyncHandler(async (req, res) => {
   const { name, description, category, price, productInStock } = req.body;
 
   if (
@@ -41,20 +41,20 @@ const createProduct = asyncHandler(async (req, res) => {
 });
 
 // Get a specific product
-const fetchProduct = asyncHandler(async (req, res) => {
+exports.fetchProduct = asyncHandler(async (req, res) => {
   const { id } = req.body;
   const product = await Product.findById(id);
   if (!product) throw new CustomError(400, false, "Product not found!");
 });
 
 // Get all products
-const getProducts = asyncHandler(async (req, res) => {
+exports.getProducts = asyncHandler(async (req, res) => {
   const products = await Product.find().populate("category");
   res.status(200).json({ success: true, products });
 });
 
 // Update a product
-const updateProduct = asyncHandler(async (req, res) => {
+exports.updateProduct = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
   const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
@@ -65,7 +65,7 @@ const updateProduct = asyncHandler(async (req, res) => {
 });
 
 // Delete a product
-const deleteProduct = asyncHandler(async (req, res) => {
+exports.deleteProduct = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
   const deletedProduct = await Product.findByIdAndDelete(id);
@@ -75,14 +75,5 @@ const deleteProduct = asyncHandler(async (req, res) => {
   res.status(200).json({
     success: true,
     message: "Product has been successfully deleted!",
-    product: deletedProduct,
   });
 });
-
-module.exports = {
-  createProduct,
-  fetchProduct,
-  getProducts,
-  updateProduct,
-  deleteProduct,
-};

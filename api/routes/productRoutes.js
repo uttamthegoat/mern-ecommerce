@@ -8,7 +8,7 @@ const {
   updateProduct,
   deleteProduct,
   fetchProduct,
-} = require("../controllers/productControllers");
+} = require("../controllers/productController");
 const upload = multer();
 
 router

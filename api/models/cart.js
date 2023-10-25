@@ -18,7 +18,7 @@ const cartSchema = new mongoose.Schema(
           type: Schema.Types.ObjectId,
           ref: "Product",
         },
-        quantity: Number,
+        quantity: { type: Number, required: true },
         orderState: ["pending", "Out for Delivery", "Shipped", "Delivered"],
       },
     ],
