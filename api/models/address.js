@@ -10,23 +10,26 @@ const addressSchema = new mongoose.Schema(
     address: {
       type: String,
       required: true,
+      trim: true,
+      default: "",
     },
     city: {
       type: String,
       required: true,
+      trim: true,
+      default: "",
     },
     state: {
       type: String,
       required: true,
+      trim: true,
+      default: "",
     },
     country: {
       type: String,
       required: true,
-    },
-    phoneNumber: {
-      type: Number,
-      required: true,
-      maxlength: 10,
+      trim: true,
+      default: "",
     },
   },
   { timestamps: true }
