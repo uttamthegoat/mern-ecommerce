@@ -25,10 +25,10 @@ const Authenticate = () => {
                   setOpenTab(1);
                 }}
                 data-toggle="tab"
-                href="#register_tab"
+                href="#login_tab"
                 role="tablist"
               >
-                Sign Up
+                Sign In
               </a>
             </li>
             <li className="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -44,10 +44,10 @@ const Authenticate = () => {
                   setOpenTab(2);
                 }}
                 data-toggle="tab"
-                href="#login_tab"
+                href="#register_tab"
                 role="tablist"
               >
-                Sign In
+                Sign Up
               </a>
             </li>
           </ul>
@@ -58,13 +58,13 @@ const Authenticate = () => {
                   className={openTab === 1 ? "block" : "hidden"}
                   id="register_tab"
                 >
-                  <SignupTab />
+                  <LoginTab />
                 </div>
                 <div
                   className={openTab === 2 ? "block" : "hidden"}
                   id="login_tab"
                 >
-                  <LoginTab />
+                  <SignupTab />
                 </div>
               </div>
             </div>

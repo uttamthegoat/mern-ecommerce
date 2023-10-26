@@ -9,14 +9,13 @@ const {
   deleteProduct,
   fetchProduct,
 } = require("../controllers/productController");
-const products = require("../models/products");
 const verifyAdmin = require('../middleware/verifyAdmin');
 const upload = multer();
 
 // create a product
 router
 .route("/create-product")
-.post(authMiddleware,verifyAdmin, upload.single("image"), createProduct);
+.post(authMiddleware,verifyAdmin, upload.single("file"), createProduct);
 
 //get all products:  https://localhost:5002/api/products/all-products?page=1&pageSize=1
 router.route("/all-products").get(authMiddleware, getProducts);

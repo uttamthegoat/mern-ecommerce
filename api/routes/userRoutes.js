@@ -7,12 +7,14 @@ const {
   updateUser,
   getAllUsers,
 } = require("../controllers/userController");
+const upload = multer();
+
 
 // get profile
 router.route("/get-user").get(authMiddleware, getUser);
 
 // update profile
-router.route("/update-user").put(authMiddleware, updateUser);
+router.route("/update-user").put(authMiddleware,upload.single("file"), updateUser);
 
 // get all users
 router.route("/get-all-users").put(verifyAdmin, authMiddleware, getAllUsers);
