@@ -51,5 +51,4 @@ const allRoutes = [
     status: false,
   },
 ];
-
 export default allRoutes;
