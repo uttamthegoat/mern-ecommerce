@@ -61,62 +61,50 @@ function Profile() {
         <h2 className="text-2xl font-bold"></h2>
         {isEditing ? (
           <form>
-            <div className="mt-2 grid grid-cols-2 gap-4 text-center">
-              <div className="text-center">
-                <label className="text-gray-600">Name:</label>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  value={tempUser.name}
-                  onChange={(e) => setTempUser({ ...tempUser, name: e.target.value })}
-                  className="w-64 border rounded p-2 shadow-md mx-auto text-center"
-                />
-              </div>
-              <div className="text-center">
-                <label className="text-gray-600">Date of Birth:</label>
-              </div>
-              <div>
-                <input
-                  type="date"
-                  value={tempUser.dateOfBirth}
-                  onChange={(e) => setTempUser({ ...tempUser, dateOfBirth: e.target.value })}
-                  className="w-64 border rounded p-2 shadow-md mx-auto text-center"
-                />
-              </div>
-              <div className="text-center">
-                <label className="text-gray-600">Address:</label>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  value={tempUser.address}
-                  onChange={(e) => setTempUser({ ...tempUser, address: e.target.value })}
-                  className="w-64 border rounded p-2 shadow-md mx-auto text-center"
-                />
-              </div>
-              <div className="text-center">
-                <label className="text-gray-600">Email:</label>
-              </div>
-              <div>
-                <input
-                  type="email"
-                  value={tempUser.email}
-                  onChange={(e) => setTempUser({ ...tempUser, email: e.target.value })}
-                  className="w-64 border rounded p-2 shadow-md mx-auto text-center"
-                />
-              </div>
-              <div className="text-center">
-                <label className="text-gray-600">Phone Number:</label>
-              </div>
-              <div>
-                <input
-                  type="text"
-                  value={tempUser.phoneNumber}
-                  onChange={(e) => setTempUser({ ...tempUser, phoneNumber: e.target.value })}
-                  className="w-64 border rounded p-2 shadow-md mx-auto text-center"
-                />
-              </div>
+            <div className="mt-2">
+              <label className="text-gray-600">Name:</label>
+              <input
+                type="text"
+                value={tempUser.name}
+                onChange={(e) => setTempUser({ ...tempUser, name: e.target.value })}
+                className="w-64 border rounded p-2 shadow-md mx-auto text-center"
+              />
+            </div>
+            <div className="mt-2">
+              <label className="text-gray-600">Date of Birth:</label>
+              <input
+                type="date"
+                value={tempUser.dateOfBirth}
+                onChange={(e) => setTempUser({ ...tempUser, dateOfBirth: e.target.value })}
+                className="w-64 border rounded p-2 shadow-md mx-auto text-center"
+              />
+            </div>
+            <div className="mt-2">
+              <label className="text-gray-600">Address:</label>
+              <input
+                type="text"
+                value={tempUser.address}
+                onChange={(e) => setTempUser({ ...tempUser, address: e.target.value })}
+                className="w-64 border rounded p-2 shadow-md mx-auto text-center"
+              />
+            </div>
+            <div className="mt-2">
+              <label className="text-gray-600">Email:</label>
+              <input
+                type="email"
+                value={tempUser.email}
+                onChange={(e) => setTempUser({ ...tempUser, email: e.target.value })}
+                className="w-64 border rounded p-2 shadow-md mx-auto text-center"
+              />
+            </div>
+            <div className="mt-2">
+              <label className="text-gray-600">Phone Number:</label>
+              <input
+                type="text"
+                value={tempUser.phoneNumber}
+                onChange={(e) => setTempUser({ ...tempUser, phoneNumber: e.target.value })}
+                className="w-64 border rounded p-2 shadow-md mx-auto text-center"
+              />
             </div>
             <input
               type="file"
@@ -131,36 +119,34 @@ function Profile() {
           </form>
         ) : (
           <div>
-            <div className="grid grid-cols-2 gap-2 text-center">
-              <div>
-                <p className="text-gray-600">Name:</p>
-                <p className="border p-2 rounded-md">{user.name}</p>
-              </div>
-              <div>
-                <p className="text-gray-600">Date of Birth:</p>
-                <p className="border p-2 rounded-md">{user.dateOfBirth}</p>
-              </div>
-              <div>
-                <p className="text-gray-600">Address:</p>
-                <p className="border p-2 rounded-md">{user.address}</p>
-              </div>
-              <div>
-                <p className="text-gray-600">Email:</p>
-                <p className="border p-2 rounded-md">{user.email}</p>
-              </div>
-              <div>
-                <p className="text-gray-600">Phone Number:</p>
-                <p className="border p-2 rounded-md">{user.phoneNumber}</p>
-              </div>
-              <div className="col-span-2">
-                <button onClick={handleEditClick} className="mt-4 bg-purple-500 text-white p-2 rounded shadow-md">
-                  Edit
-                </button>
-                <br />
-                <button onClick={handleVisitAdminPage} className="mt-4 bg-purple-400 text-white p-2 rounded shadow-md">
-                  Visit Admin Page
-                </button>
-              </div>
+            <div className="mt-2">
+              <p className="text-gray-600">Name:</p>
+              <p className="border p-2 rounded-md">{user.name}</p>
+            </div>
+            <div className="mt-2">
+              <p className="text-gray-600">Date of Birth:</p>
+              <p className="border p-2 rounded-md">{user.dateOfBirth}</p>
+            </div>
+            <div className="mt-2">
+              <p className="text-gray-600">Address:</p>
+              <p className="border p-2 rounded-md">{user.address}</p>
+            </div>
+            <div className="mt-2">
+              <p className="text-gray-600">Email:</p>
+              <p className="border p-2 rounded-md">{user.email}</p>
+            </div>
+            <div className="mt-2">
+              <p className="text-gray-600">Phone Number:</p>
+              <p className="border p-2 rounded-md">{user.phoneNumber}</p>
+            </div>
+            <div>
+              <button onClick={handleEditClick} className="mt-4 bg-purple-500 text-white p-2 rounded shadow-md">
+                Edit
+              </button>
+              <br />
+              <button onClick={handleVisitAdminPage} className="mt-4 bg-purple-400 text-white p-2 rounded shadow-md">
+                Visit Admin Page
+              </button>
             </div>
           </div>
         )}
