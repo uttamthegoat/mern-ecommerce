@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import MyOrders from "../components/Orders/MyOrders";
 
 const Orders = () => {
   return (
-    <div>Orders</div>
-  )
-}
+    <div>
+      <MyOrders />
+    </div>
+  );
+};
 
-export default Orders
+export default Orders;

@@ -28,7 +28,7 @@ const allRoutes = [
   },
   {
     id: 4,
-    path: "/order",
+    path: "/orders",
     element: <Orders />,
     status: false,
   },
