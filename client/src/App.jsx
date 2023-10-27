@@ -4,6 +4,7 @@ import ScrollToTop from "./components/Static/ScrollToTop";
 import Navbar from "./components/Static/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import allRoutes from "./utils/routes";
+import Footer from "./components/Footer/Footer";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
             );
           })}
         </Routes>
+        <Footer></Footer>
       </div>
     </Router>
   );
