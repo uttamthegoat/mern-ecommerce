@@ -1,28 +1,44 @@
 .Navbar_Glass {
-    background: rgb(255, 255, 255);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border-radius: 0px 0px 10px 10px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    position: sticky;
-    top: 0;
-    right: 0;
-    z-index: 999999;
+  background: rgb(255, 255, 255);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  border-radius: 0px 0px 10px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  position: sticky;
+  top: 0;
+  right: 0;
+  z-index: 999999;
+}
+
+@media screen and (max-width: 767px) {
+  .Navbar_Navlinks {
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgb(255, 255, 255);
+    width: calc(100vw - 10px);
   }
-  
-  @media screen and (max-width: 767px) {
-    .Navbar_Navlinks {
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      background-color: rgb(255, 255, 255);
-      width: calc(100vw - 10px);
-    }
-  }
-  
-  .Footer_Custom_li {
-    list-style-type: '▷';
-  }
-  .Footer_Custom_li:hover {
-    list-style-type: '▶';
-    color: #ff0078;
-    text-decoration: underline;
-  }
+}
+
+.Footer_Custom_li {
+  list-style-type: "◪";
+}
+.Footer_Custom_li:hover {
+  /* list-style-type: "◩"; */
+  color: #ff0078;
+}
+.Footer_Custom_li a:hover {
+  color: #ff0078;
+  text-decoration: underline;
+}
+
+.Footer_Call_li {
+  list-style-type: "📞";
+}
+.Footer_Call_li::marker {
+  color: #ffffff;
+}
+.Footer_Mail_li {
+  list-style-type: "📧";
+}
+.Footer_Mail_li::marker {
+  color: #ffffff;
+}
