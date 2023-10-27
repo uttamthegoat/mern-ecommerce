@@ -55,7 +55,7 @@ const SignupTab = () => {
           </label>
           <input
             type="text"
-            name="text"
+            name="gender"
             id="gender"
             value=""
             placeholder="Enter your gender..."
