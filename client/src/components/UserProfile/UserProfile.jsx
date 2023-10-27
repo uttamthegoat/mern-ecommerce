@@ -63,7 +63,8 @@ function UserProfile() {
         </div>
       </div>
 
-      <div className="mt-4 text-center">
+      {/* details */}
+      <div className="mt-4 md:mx-16 text-center">
         {isEditing ? (
           <form>
             <div className="mt-2">
@@ -166,25 +167,37 @@ function UserProfile() {
           </form>
         ) : (
           <div>
-            <div className="mt-2">
-              <p className="text-gray-600">Name:</p>
-              <p className="border p-2 rounded-md">{user.name}</p>
-            </div>
-            <div className="mt-2">
-              <p className="text-gray-600">Date of Birth:</p>
-              <p className="border p-2 rounded-md">{user.dateOfBirth}</p>
-            </div>
-            <div className="mt-2">
-              <p className="text-gray-600">Address:</p>
-              <p className="border p-2 rounded-md">{user.address}</p>
-            </div>
-            <div className="mt-2">
-              <p className="text-gray-600">Email:</p>
-              <p className="border p-2 rounded-md">{user.email}</p>
-            </div>
-            <div className="mt-2">
-              <p className="text-gray-600">Phone Number:</p>
-              <p className="border p-2 rounded-md">{user.phoneNumber}</p>
+            <div className="md:grid md:grid-rows-3 md:grid-flow-col md:gap-x-40 md:gap-y-10">
+              <div className="mt-2 md:grid md:grid-cols-3 md:gap-x-4 md:h-fit">
+                <p className="text-gray-600 font-semibold">Name:</p>
+                <p className="border p-2 rounded-md md:col-span-2">
+                  {user.name}
+                </p>
+              </div>
+              <div className="mt-2 md:grid md:grid-cols-3 md:gap-x-4 md:h-fit">
+                <p className="text-gray-600 font-semibold">Date of Birth:</p>
+                <p className="border p-2 rounded-md md:col-span-2">
+                  {user.dateOfBirth}
+                </p>
+              </div>
+              <div className="mt-2 md:grid md:grid-cols-3 md:gap-x-4 md:h-fit">
+                <p className="text-gray-600 font-semibold">Address:</p>
+                <p className="border p-2 rounded-md md:col-span-2">
+                  {user.address}
+                </p>
+              </div>
+              <div className="mt-2 md:grid md:grid-cols-3 md:gap-x-4 md:h-fit">
+                <p className="text-gray-600 font-semibold">Email:</p>
+                <p className="border p-2 rounded-md md:col-span-2">
+                  {user.email}
+                </p>
+              </div>
+              <div className="mt-2 md:grid md:grid-cols-3 md:gap-x-4 md:h-fit">
+                <p className="text-gray-600 font-semibold">Phone Number:</p>
+                <p className="border p-2 rounded-md md:col-span-2">
+                  {user.phoneNumber}
+                </p>
+              </div>
             </div>
             <div>
               <button
