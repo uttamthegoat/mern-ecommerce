@@ -26,3 +26,12 @@ export const Nav_Links = [
     icon: <i className="fa-solid fa-user"></i>,
   },
 ];
+
+export const navBrand =
+  "https://res.cloudinary.com/dnsedswbm/image/upload/v1698318086/Mern-ecommerce/vm4awwwlwmjamkje5eom.png";
+
+export const defaultImage =
+  "https://support.pega.com/sites/default/files/pega-user-image/283/REG-282635.png";
+
+export const signinLogo =
+  "https://res.cloudinary.com/dnsedswbm/image/upload/v1698321302/Mern-ecommerce/twppul7s2gp4xiwb03zj.png";

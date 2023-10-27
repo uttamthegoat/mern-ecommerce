@@ -2,9 +2,10 @@ import React from "react";
 import "./App.css";
 import ScrollToTop from "./components/Static/ScrollToTop";
 import Navbar from "./components/Static/Navbar";
+import Footer from "./components/Static/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import allRoutes from "./utils/routes";
-import Footer from "./components/Footer/Footer";
+import ProductPage from "./components/ProductPage/Product";
 
 const App = () => {
   return (
@@ -23,8 +24,9 @@ const App = () => {
               />
             );
           })}
+          <Route path="/product" element={<ProductPage />} />
         </Routes>
-        <Footer></Footer>
+        <Footer />
       </div>
     </Router>
   );

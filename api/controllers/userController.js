@@ -1,64 +1,38 @@
-const User = require("../models/users");
-const asyncHandler = require("../middleware/asyncHandler");
 const CustomError = require("../errors/CustomError");
-const generateToken = require("../utils/generateToken");
+const asyncHandler = require("../middleware/asyncHandler");
+const imageUploadUser = require("../utils/imageUpload");
+const User = require("../models/users");
 
-// Register User
-//@route POST api/auth/signup
-exports.registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
-
-  const userExists = await User.findOne({ email });
-  //checking if the user exists
-  if (userExists)
-    throw new CustomError(401, false, "User already exists. Please Login!");
-
-  // If there are no users yet, make this user an admin
-  const isFirstUser = (await User.countDocuments({})) === 0;
-
-  // do not generate token, instead implement otp generation and verification
-  const user = await User.create({
-    name,
-    email,
-    password,
-    isAdmin: isFirstUser,
-  });
-
-  if (user) {
-    // generateToken(res, user);
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-    });
-  } else {
-    throw new CustomError(500, false, "Invalid user");
-  }
+// get profile
+exports.getUser = asyncHandler(async (req, res) => {
+  const { id } = req.body;
+  const user = await User.findById(id).select("-password");
+  if (!user) throw new CustomError(400, false, "User not found!");
+  res.status(200).json({ success: true, user });
 });
 
-//Login User
-//@route POST api/auth/login
-exports.loginUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+// update profile
+exports.updateUser = asyncHandler(async (req, res) => {
+  const { name, gender, phoneNumber } = req.body;
 
-  const user = await User.findOne({ email });
-  if (!user) throw new CustomError(401, false, "Please register first!");
+  const userImage = await imageUploadUser(req.file);
+  if (!userImage) throw new CustomError(400, false, "User image not found!");
 
-  const comparePassword = await user.matchPasswords(password);
-  if (!comparePassword)
-    throw new CustomError(401, false, "Password Incorrect! Try again.");
-  generateToken(res, user._id);
-  res.status(201).json({
-    _id: user._id,
-    name: user.name,
-    email: user.email,
-    message: "Login successfull!",
-  });
+  const user = await User.findOneAndUpdate(
+    { _id: req.user.id },
+    { $set: { name, gender, userImage, phoneNumber } },
+    { new: true }
+  );
+  if (!user) throw new CustomError(400, false, "User profile was not updated");
+  res
+    .status(200)
+    .json({ success: true, message: "Your details are updated", user: user });
 });
 
-//logout user
-//@route POST api/auth/logout
-exports.logoutUser = asyncHandler(async (req, res) => {
-  res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });
-  res.status(200).json({ success: true, message: "Logged out successfully!" });
+// get all users
+// for admin
+exports.getAllUsers = asyncHandler(async (req, res) => {
+  const allUsers = await User.find();
+  if (!allUsers) throw new CustomError(400, false, "User not found!");
+  res.status(200).json({ success: true, allUsers });
 });
