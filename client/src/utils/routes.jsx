@@ -6,6 +6,8 @@ const Orders = React.lazy(() => import("../pages/Orders"));
 const Cart = React.lazy(() => import("../pages/Cart"));
 const Wishlist = React.lazy(() => import("../pages/Wishlist"));
 const Redirect = React.lazy(() => import("../pages/Redirect"));
+const Search = React.lazy(() => import("../pages/Search"));
+const ProductPage = React.lazy(() => import("../pages/ProductPage"));
 
 const allRoutes = [
   {
@@ -48,6 +50,18 @@ const allRoutes = [
     id: 7,
     path: "*",
     element: <Redirect />,
+    status: false,
+  },
+  {
+    id: 8,
+    path: "/search",
+    element: <Search />,
+    status: false,
+  },
+  {
+    id: 9,
+    path: "/product-page/:id",
+    element: <ProductPage />,
     status: false,
   },
 ];
