@@ -2,13 +2,14 @@ import React from "react";
 import "./App.css";
 import ScrollToTop from "./components/Static/ScrollToTop";
 import Navbar from "./components/Static/Navbar";
+import Footer from "./components/Static/Footer";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import allRoutes from "./utils/routes";
 
 const App = () => {
   return (
-    <Router>
-      <div className="App">
+    <div className="App flex flex-col">
+      <Router>
         <ScrollToTop />
         <Navbar />
         <Routes>
@@ -23,8 +24,9 @@ const App = () => {
             );
           })}
         </Routes>
-      </div>
-    </Router>
+        <Footer />
+      </Router>
+    </div>
   );
 };
 
