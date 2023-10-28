@@ -40,6 +40,9 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    dob:{
+      type:Date
+    }
   },
   { timestamps: true }
 );

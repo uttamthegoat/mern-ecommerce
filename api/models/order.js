@@ -7,7 +7,9 @@ const orderSchema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    orderDate: String,
+    orderDate: {
+      type: Date,
+    },
     product: {
       type: Schema.Types.ObjectId,
       ref: "Product",
@@ -15,6 +17,10 @@ const orderSchema = new mongoose.Schema(
     address: {
       type: Schema.Types.ObjectId,
       ref: "Address",
+    },
+    quantity: {
+      type: Number,
+      default: 1,
     },
   },
   { timestamps: true }

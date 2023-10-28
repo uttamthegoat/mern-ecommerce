@@ -7,7 +7,7 @@ const cartSchema = new mongoose.Schema(
       type: Schema.Types.ObjectId,
       ref: "User",
     },
-    totalPrice: Number,
+    totalPrice: { type: Number },
     address: {
       type: Schema.Types.ObjectId,
       ref: "Address",
@@ -19,7 +19,6 @@ const cartSchema = new mongoose.Schema(
           ref: "Product",
         },
         quantity: { type: Number, required: true },
-        orderState: ["pending", "Out for Delivery", "Shipped", "Delivered"],
       },
     ],
   },

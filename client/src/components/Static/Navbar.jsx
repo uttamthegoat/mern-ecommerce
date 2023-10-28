@@ -6,8 +6,12 @@ import {
   navBrand,
   defaultImage,
 } from "../../assets/constants";
+import { useDispatch } from "react-redux";
+import { showSidebar } from "../../features/sidebar/sidebarSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const openSidebar = () => dispatch(showSidebar());
   const searchForm = (e) => e.preventDefault();
   return (
     <nav
@@ -30,7 +34,7 @@ const Navbar = () => {
               BuyBox
             </Link>
           </div>
-          <div className="w-[48px] border-2 border-gray-600 rounded-full p-1 md:hidden">
+          <div className="w-[48px] border-2 border-gray-600 rounded-full p-1 md:hidden" onClick={openSidebar}>
             <LazyLoadImage
               src={defaultImage}
               alt="userImage"
@@ -56,7 +60,7 @@ const Navbar = () => {
               />
             </form>
           </li>
-          <li className="mt-5 md:mt-0 md:ms-3 hidden md:block">
+          <li className="mt-5 md:mt-0 md:ms-3 hidden md:block cursor-pointer" onClick={openSidebar}>
             <div className="w-[48px] border-2 border-gray-600 rounded-full p-1">
               <LazyLoadImage
                 src={defaultImage}

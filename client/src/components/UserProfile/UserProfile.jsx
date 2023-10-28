@@ -160,7 +160,7 @@ function UserProfile() {
             />
             <button
               onClick={handleSaveClick}
-              className="mt-4 bg-purple-400 text-white p-2 rounded shadow-md"
+              className="mt-4 bg-blue-600 text-white p-2 rounded shadow-md"
             >
               Save Changes
             </button>
@@ -202,14 +202,14 @@ function UserProfile() {
             <div>
               <button
                 onClick={handleEditClick}
-                className="mt-4 bg-purple-500 text-white p-2 rounded shadow-md"
+                className="mt-4 bg-violet-800 text-white p-2 rounded shadow-md"
               >
                 Edit
               </button>
               <br />
               <button
                 onClick={handleVisitAdminPage}
-                className="mt-4 bg-purple-400 text-white p-2 rounded shadow-md"
+                className="mt-4 bg-violet-500 text-white p-2 rounded shadow-md"
               >
                 Visit Admin Page
               </button>

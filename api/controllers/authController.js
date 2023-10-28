@@ -73,6 +73,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
     throw new CustomError(401, false, "Password Incorrect! Try again.");
   generateToken(res, user._id);
   res.status(201).json({
+    success: true,
     _id: user._id,
     name: user.name,
     email: user.email,
