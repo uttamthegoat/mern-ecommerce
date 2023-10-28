@@ -63,7 +63,10 @@ exports.verifyOTP = asyncHandler(async (req, res) => {
   // Check if the received OTP matches the generated OTP
   if (receivedOTP === globalOTP) {
     // sendVerificationEmail(req.body.email);
-    res.status.json(200,true,'Email verified');
+    res.status(200).json({
+      success:True,
+      message:"Email Verified!",
+    });
   } else {
     // OTPs do not match
     throw new CustomError(400,false,'OTP verification failed');
