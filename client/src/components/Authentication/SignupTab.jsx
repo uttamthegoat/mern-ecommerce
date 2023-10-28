@@ -83,8 +83,9 @@ const SignupTab = () => {
             type="button"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-auto block w-full"
           >
-            Otp verify
+            Generate Otp 
           </button>
+          
           <div className="flex flex-col my-4 md:px-1 space-y-3">
             <label
               htmlFor="Enter OTP number "
@@ -102,6 +103,15 @@ const SignupTab = () => {
             />
           </div>
         </div>
+        <div className="my-4 md:px-5">
+          <button
+            type="submit"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-auto block w-full"
+          >
+            OTP verify
+          </button>
+        </div>
+
         <div className="my-4 md:px-5">
           <button
             type="submit"
