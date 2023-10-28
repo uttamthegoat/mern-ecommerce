@@ -1,4 +1,5 @@
 import React from "react";
+import Orderinfo from "../pages/Orderinfo";
 const Home = React.lazy(() => import("../pages/Home"));
 const Authenticate = React.lazy(() => import("../pages/Authenticate"));
 const Profile = React.lazy(() => import("../pages/Profile"));
@@ -55,6 +56,12 @@ const allRoutes = [
     id: 8,
     path: "/search",
     element: <Search />,
+    status: false,
+  },
+  {
+    id: 8,
+    path: "/orderinfo",
+    element: <Orderinfo />,
     status: false,
   },
 ];
