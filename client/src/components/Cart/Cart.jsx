@@ -1,3 +1,5 @@
+import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
@@ -39,8 +41,9 @@ const Cart = () => {
 
   return (
     <div className="container mt-3 md:my-8 px-4 mx-auto">
-      <div className="border-b-2 border-gray-600 mb-4 p-4">
-        <h2 className="text-2xl font-semibold text-center">Shopping Cart</h2>
+      <div className="border-b-2 border-gray-600 mb-4 p-4 flex items-center justify-center">
+        <FontAwesomeIcon icon={faCartPlus} className="text-2xl"/>
+        <h2 className="ms-2 text-2xl font-semibold text-center">Shopping Cart</h2>
       </div>
       {/* address */}
       <div className="md:col-span-1 my-6">

@@ -12,12 +12,23 @@ import {
 import { defaultImage } from "../../assets/constants";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { selectSidebar } from "../../features/sidebar/sidebarSlice";
+import { hideSidebar } from "../../features/sidebar/sidebarSlice";
 
 const Sidebar = () => {
-  const closeSidebar = () => {};
+  const dispatch = useDispatch();
+  const { open } = useSelector(selectSidebar);
+  const closeSidebar = () => {
+    dispatch(hideSidebar());
+  };
   const handleLogout = () => {};
   return (
-    <div className="w-60 md:w-72 h-full fixed top-0 right-0 bg-green-400 z-[100] rounded-s-xl py-2">
+    <div
+      className={`w-60 md:w-72 h-full fixed top-0 right-0 bg-green-400 z-[100] rounded-s-xl py-2 ${
+        open ? "block" : "hidden"
+      }`}
+    >
       <div className="px-2 flex justify-end mb-4">
         <button
           type="button"
