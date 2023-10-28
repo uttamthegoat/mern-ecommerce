@@ -32,7 +32,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
   if (user) {
     // generateToken(res, user);
     res.status(201).json({
-      success:True,
+      success:true,
       message:"Signup Successfull,Please Login!",
     });
   } else {
@@ -64,7 +64,7 @@ exports.verifyOTP = asyncHandler(async (req, res) => {
   if (receivedOTP === globalOTP) {
     // sendVerificationEmail(req.body.email);
     res.status(200).json({
-      success:True,
+      success:true,
       message:"Email Verified!",
     });
   } else {
