@@ -47,7 +47,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
 //@route POST api/auth/generateOTP
 exports.generateOTP = asyncHandler(async (req, res) => {
   const otp = Math.floor(100000 + Math.random() * 900000);
-  globalOTP=otp;
+  globalOTP=otp.toString();
   //send this otp code to the email as planned
   res.json({ otp });
 })
