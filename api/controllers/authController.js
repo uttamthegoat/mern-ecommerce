@@ -36,6 +36,14 @@ exports.registerUser = asyncHandler(async (req, res) => {
   }
 });
 
+//generate token
+//@route POST api/auth/generateotp
+exports.generateotp = asyncHandler(async (req, res) => {
+  const otp = Math.floor(100000 + Math.random() * 900000);
+//send this otp code to the email as planned
+  res.json({ otp });
+})
+
 //Login User
 //@route POST api/auth/login
 exports.loginUser = asyncHandler(async (req, res) => {
