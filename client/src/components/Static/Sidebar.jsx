@@ -56,12 +56,12 @@ const Sidebar = () => {
           </div>
           <p>uttamthegoat</p>
         </div>
-        <hr className="w-11/12 mx-auto" style={{ border: "1px solid gray" }} />
+        <hr className={`w-11/12 mx-auto ${styles.Sidebar_Divider_border}`} />
         <div className="flex items-center gap-3 ps-6 my-3">
           <FontAwesomeIcon icon={faUser} />
           <Link to="/profile">Your Profile</Link>
         </div>
-        <hr className="w-11/12 mx-auto" style={{ border: "1px solid gray" }} />
+        <hr className={`w-11/12 mx-auto ${styles.Sidebar_Divider_border}`} />
       </div>
       <section className="ps-6 space-y-4">
         <div className="flex items-center gap-3 mt-4">
@@ -77,15 +77,16 @@ const Sidebar = () => {
           <Link to="/wishlist">My Wishlist</Link>
         </div>
       </section>
-      <hr
-        className="w-11/12 mx-auto mt-4"
-        style={{ border: "1px solid gray" }}
-      />
+      <hr className={`w-11/12 mx-auto mt-4 ${styles.Sidebar_Divider_border}`} />
       <div className="flex items-center gap-3 ps-6 my-3">
         <FontAwesomeIcon icon={faArrowRightFromBracket} />
         <button type="button" onClick={handleLogout}>
           Logout
         </button>
+      </div>
+      {/* admin */}
+      <div>
+        
       </div>
     </div>
   );

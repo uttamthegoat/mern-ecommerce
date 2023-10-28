@@ -3,6 +3,8 @@ const asyncHandler = require("../middleware/asyncHandler");
 const CustomError = require("../errors/CustomError");
 const generateToken = require("../utils/generateToken");
 
+let golbalOTP;
+
 // Register User
 //@route POST api/auth/signup
 exports.registerUser = asyncHandler(async (req, res) => {
@@ -40,6 +42,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
 //@route POST api/auth/generateOTP
 exports.generateOTP = asyncHandler(async (req, res) =>{
   const otp = Math.floor(100000 + Math.random() * 900000);
+
 //send this otp code to the email as planned
   res.json({ otp });
 })
@@ -47,12 +50,10 @@ exports.generateOTP = asyncHandler(async (req, res) =>{
 //generate token
 //@route POST api/auth/generateotp
 exports.generateotp = asyncHandler(async (req, res) =>{
-  const generatedOTP = generateOTP(); // Generate a random OTP
   const receivedOTP = req.body.otp; // Get the OTP received from the user
 
   // Check if the received OTP matches the generated OTP
   if (receivedOTP === generatedOTP) {
-    sendVerificationEmail(req.body.email);
     res.send('Email verified');
   } else {
     // OTPs do not match
