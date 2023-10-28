@@ -15,14 +15,19 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { selectSidebar } from "../../features/sidebar/sidebarSlice";
 import { hideSidebar } from "../../features/sidebar/sidebarSlice";
+import { useNavigate } from "react-router-dom";
+import { logout_User } from "../Authentication/apiCall";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { open } = useSelector(selectSidebar);
   const closeSidebar = () => {
     dispatch(hideSidebar());
   };
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    logout_User(navigate, dispatch);
+  };
   return (
     <div
       className={`w-60 md:w-72 h-full fixed top-0 right-0 bg-green-400 z-[100] rounded-s-xl py-2 ${
@@ -69,7 +74,7 @@ const Sidebar = () => {
         </div>
         <div className="flex items-center gap-3">
           <FontAwesomeIcon icon={faBookmark} />
-          <Link to={{ pathname: "/about" }}>My Wishlist</Link>
+          <Link to="/wishlist">My Wishlist</Link>
         </div>
       </section>
       <hr

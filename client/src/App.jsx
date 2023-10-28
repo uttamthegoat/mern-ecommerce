@@ -4,9 +4,9 @@ import ScrollToTop from "./components/Static/ScrollToTop";
 import Navbar from "./components/Static/Navbar";
 import Sidebar from "./components/Static/Sidebar";
 import Footer from "./components/Static/Footer";
+import Alert from "./features/alert/Alert";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import allRoutes from "./utils/routes";
-// const Redirect = React.lazy(() => import("./pages/Redirect"));
 import Redirect from "./pages/Redirect";
 
 const App = () => {
@@ -16,6 +16,7 @@ const App = () => {
         <React.Suspense fallback={<h1>Loading...</h1>}>
           <ScrollToTop />
           <Navbar />
+          <Alert />
           <Sidebar />
           <Routes>
             {allRoutes.map((route) => {
@@ -33,7 +34,6 @@ const App = () => {
           <Footer />
         </React.Suspense>
       </div>
-      
     </Router>
   );
 };

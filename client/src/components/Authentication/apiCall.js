@@ -19,3 +19,21 @@ export const login_User = (loginDet, navigate, dispatch) => {
       dispatch(showAlert({ message, type }));
     });
 };
+
+export const logout_User = (navigate, dispatch) => {
+  axios
+    .get("/auth/logout")
+    .then((res) => {
+      if (res.data.success) {
+        const message = res.data.message,
+          type = "success";
+        dispatch(showAlert({ message, type }));
+        navigate("/auth");
+      }
+    })
+    .catch((error) => {
+      const message = error.response.data.message,
+        type = "error";
+      dispatch(showAlert({ message, type }));
+    });
+};
