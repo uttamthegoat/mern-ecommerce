@@ -2,11 +2,14 @@ const User = require("../models/users");
 const asyncHandler = require("../middleware/asyncHandler");
 const CustomError = require("../errors/CustomError");
 const generateToken = require("../utils/generateToken");
+let globalOTP;
+
+
 
 // Register User
 //@route POST api/auth/signup
 exports.registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body;
+  const { name, email, password,gender,phoneNumber } = req.body;
 
   const userExists = await User.findOne({ email });
   //checking if the user exists
@@ -21,44 +24,54 @@ exports.registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
+    gender,
+    phoneNumber,
     isAdmin: isFirstUser,
   });
 
   if (user) {
     // generateToken(res, user);
     res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+      success:True,
+      message:"Signup Successfull,Please Login!",
     });
   } else {
     throw new CustomError(500, false, "Invalid user");
   }
 });
 
+
+
+
 //generate token
 //@route POST api/auth/generateOTP
 exports.generateOTP = asyncHandler(async (req, res) => {
   const otp = Math.floor(100000 + Math.random() * 900000);
+  globalOTP=otp;
   //send this otp code to the email as planned
   res.json({ otp });
 })
 
-//generate token
+
+
+
+//verify token
 //@route POST api/auth/verifyOTP
 exports.verifyOTP = asyncHandler(async (req, res) => {
-  const generatedOTP = generateOTP(); // Generate a random OTP
-  const receivedOTP = req.body.otp; // Get the OTP received from the user
+    const receivedOTP = req.body.otp; // Get the OTP received from the user
 
   // Check if the received OTP matches the generated OTP
-  if (receivedOTP === generatedOTP) {
-    sendVerificationEmail(req.body.email);
-    res.send('Email verified');
+  if (receivedOTP === globalOTP) {
+    // sendVerificationEmail(req.body.email);
+    res.status.json(200,true,'Email verified');
   } else {
     // OTPs do not match
-    res.send('OTP verification failed');
+    throw new CustomError(400,false,'OTP verification failed');
   }
 })
+
+
+
 
 //Login User
 //@route POST api/auth/login
@@ -80,6 +93,9 @@ exports.loginUser = asyncHandler(async (req, res) => {
     message: "Login successfull!",
   });
 });
+
+
+
 
 //logout user
 //@route POST api/auth/logout
