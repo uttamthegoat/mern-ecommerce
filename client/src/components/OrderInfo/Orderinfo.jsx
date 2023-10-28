@@ -2,7 +2,8 @@ import React from "react";
 
 const OrderInfo = () => {
   const order = {
-    image: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.D7K_78l4ZiqpP8nmLmebBwHaHa%26pid%3DApi&f=1&ipt=2b98db4dd936c3379e09487eff0dfae21f451dca93c0b7995f96d9c51285b41f&ipo=images", // Example image URL
+    image:
+      "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.D7K_78l4ZiqpP8nmLmebBwHaHa%26pid%3DApi&f=1&ipt=2b98db4dd936c3379e09487eff0dfae21f451dca93c0b7995f96d9c51285b41f&ipo=images", // Example image URLD
     orderId: "123456",
     productName: "Product Name", // Example product name
     address: "123 Main St, Cityville, State - 12345",
@@ -39,7 +40,8 @@ const OrderInfo = () => {
               <span className="font-semibold">Date Ordered:</span> {order.date}
             </p>
             <p className="mb-2">
-              <span className="font-semibold">Price:</span> ${order.price.toFixed(2)}
+              <span className="font-semibold">Price:</span> $
+              {order.price.toFixed(2)}
             </p>
             <p className="mb-2">
               <span className="font-semibold">Quantity:</span> {order.quantity}

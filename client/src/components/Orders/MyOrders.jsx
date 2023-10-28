@@ -1,5 +1,6 @@
 import React from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { Link } from "react-router-dom";
 
 const MyOrders = () => {
   return (
@@ -38,12 +39,18 @@ const MyOrders = () => {
                 />
               </div>
               <div className="flex flex-col justify-around space-y-3 md:space-y-0">
-                <button className="text-black font-bold text-xl border-2 border-gray-400 mx-auto w-[200px]">
+                <Link
+                  to="/product-page/112"
+                  className="text-black font-bold text-xl border-2 border-gray-400 mx-auto w-[200px]  text-center"
+                >
                   View Product
-                </button>
-                <button className="text-black font-bold text-xl border-2 border-gray-400 mx-auto w-[200px]">
+                </Link>
+                <Link
+                  to="/orderinfo/113"
+                  className="text-black font-bold text-xl border-2 border-gray-400 mx-auto w-[200px] text-center"
+                >
                   View Order
-                </button>
+                </Link>
               </div>
             </div>
           </div>

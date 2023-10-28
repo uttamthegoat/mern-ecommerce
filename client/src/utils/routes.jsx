@@ -59,8 +59,8 @@ const allRoutes = [
     status: false,
   },
   {
-    id: 8,
-    path: "/orderinfo",
+    id: 9,
+    path: "/orderinfo/:id",
     element: <Orderinfo />,
     status: false,
   },
