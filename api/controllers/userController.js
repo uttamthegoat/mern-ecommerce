@@ -1,11 +1,11 @@
 const CustomError = require("../errors/CustomError");
 const asyncHandler = require("../middleware/asyncHandler");
-const imageUploadUser = require("../utils/imageUpload");
+const imageUploadUser = require("../utils/profileImage");
 const User = require("../models/users");
 
 // get profile
 exports.getUser = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const id = req.user._id;
   const user = await User.findById(id).select("-password");
   if (!user) throw new CustomError(400, false, "User not found!");
   res.status(200).json({ success: true, user });
@@ -13,14 +13,18 @@ exports.getUser = asyncHandler(async (req, res) => {
 
 // update profile
 exports.updateUser = asyncHandler(async (req, res) => {
-  const { name, gender, phoneNumber } = req.body;
+  const { name, gender, phoneNumber, address } = req.body;
 
-  const userImage = await imageUploadUser(req.file);
-  if (!userImage) throw new CustomError(400, false, "User image not found!");
-
+  let userImage;
+  if (req.file) {
+    userImage = await imageUploadUser(req.file);
+    if (!userImage) throw new CustomError(400, false, "User image not found!");
+  } else {
+    userImage: "";
+  }
   const user = await User.findOneAndUpdate(
     { _id: req.user.id },
-    { $set: { name, gender, userImage, phoneNumber } },
+    { $set: { name, gender, userImage, phoneNumber, address } },
     { new: true }
   );
   if (!user) throw new CustomError(400, false, "User profile was not updated");

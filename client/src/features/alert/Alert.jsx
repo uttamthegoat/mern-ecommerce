@@ -37,6 +37,7 @@ const Alert = () => {
     left: "40px",
     transition: "all 0.1s",
     display: show ? "block" : "none",
+    marginRight:"10px"
   };
 
   const spanStyles = {

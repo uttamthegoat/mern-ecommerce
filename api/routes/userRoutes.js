@@ -18,6 +18,6 @@ router.route("/get-user").get(authMiddleware, getUser);
 router.route("/update-user").put(authMiddleware,upload.single("file"), updateUser);
 
 // get all users
-router.route("/get-all-users").put(verifyAdmin, authMiddleware, getAllUsers);
+router.route("/get-all-users").get(verifyAdmin, authMiddleware, getAllUsers);
 
 module.exports = router;

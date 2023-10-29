@@ -26,7 +26,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
-    gender,
+    gender:gender.toLowerCase(),
     phoneNumber,
     isAdmin: isFirstUser,
   });
