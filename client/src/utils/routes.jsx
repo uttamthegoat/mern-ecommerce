@@ -1,5 +1,6 @@
 import React from "react";
 import Orderinfo from "../pages/Orderinfo";
+import Admin from "../pages/Admin";
 const Home = React.lazy(() => import("../pages/Home"));
 const Authenticate = React.lazy(() => import("../pages/Authenticate"));
 const Profile = React.lazy(() => import("../pages/Profile"));
@@ -63,6 +64,12 @@ const allRoutes = [
     path: "/orderinfo/:id",
     element: <Orderinfo />,
     status: false,
+  },
+  {
+    id:10,
+    path:"/admin",
+    element:<Admin/>,
+    status:false,
   },
 ];
 export default allRoutes;
