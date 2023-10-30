@@ -17,11 +17,13 @@ import { selectSidebar } from "../../features/sidebar/sidebarSlice";
 import { hideSidebar } from "../../features/sidebar/sidebarSlice";
 import { useNavigate } from "react-router-dom";
 import { logout_User } from "../Authentication/apiCall";
+import { selectUser } from "../../features/user/userSlice";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { open } = useSelector(selectSidebar);
+  const user = useSelector(selectUser);
   const closeSidebar = () => {
     dispatch(hideSidebar());
   };
@@ -30,7 +32,7 @@ const Sidebar = () => {
   };
   return (
     <div
-      className={`w-60 md:w-72 h-full fixed top-0 right-0 bg-green-400 z-[100] rounded-s-xl py-2 ${
+      className={`w-60 md:w-72 h-full fixed top-0 right-0 bg-gray-400 z-[100] rounded-s-xl py-2 ${
         open ? "block" : "hidden"
       }`}
     >
@@ -45,49 +47,47 @@ const Sidebar = () => {
       </div>
       <div>
         {/* profile icon*/}
-        <div className="flex items-center gap-3 px-2 mb-3">
+        <div className="flex items-center gap-3 px-2 mb-3 cursor-pointer">
           <div className="w-[48px] border-2 border-gray-600 rounded-full p-1">
             <LazyLoadImage
-              src={defaultImage}
+              src={user.userImage || defaultImage}
               alt="userImage"
               className="w-full h-auto rounded-full"
-              title="username"
+              title={user.name}
             />
           </div>
-          <p>uttamthegoat</p>
+          <p className="font-semibold text-xl">{user.name}</p>
         </div>
         <hr className={`w-11/12 mx-auto ${styles.Sidebar_Divider_border}`} />
-        <div className="flex items-center gap-3 ps-6 my-3">
+        <div className="flex items-center gap-3 ps-6 my-3 hover:text-white">
           <FontAwesomeIcon icon={faUser} />
-          <Link to="/profile">Your Profile</Link>
+          <Link to="/profile" className="font-semibold">Your Profile</Link>
         </div>
         <hr className={`w-11/12 mx-auto ${styles.Sidebar_Divider_border}`} />
       </div>
       <section className="ps-6 space-y-4">
-        <div className="flex items-center gap-3 mt-4">
+        <div className="flex items-center gap-3 mt-4 hover:text-white">
           <FontAwesomeIcon icon={faCartPlus} />
-          <Link to="/cart">My Cart</Link>
+          <Link to="/cart" className="font-semibold">My Cart</Link>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 hover:text-white">
           <FontAwesomeIcon icon={faBagShopping} />
-          <Link to="/orders">My Orders</Link>
+          <Link to="/orders" className="font-semibold">My Orders</Link>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 hover:text-white">
           <FontAwesomeIcon icon={faBookmark} />
-          <Link to="/wishlist">My Wishlist</Link>
+          <Link to="/wishlist" className="font-semibold">My Wishlist</Link>
         </div>
       </section>
       <hr className={`w-11/12 mx-auto mt-4 ${styles.Sidebar_Divider_border}`} />
-      <div className="flex items-center gap-3 ps-6 my-3">
+      <div className="flex items-center gap-3 ps-6 my-3 hover:text-white">
         <FontAwesomeIcon icon={faArrowRightFromBracket} />
-        <button type="button" onClick={handleLogout}>
+        <button type="button" onClick={handleLogout} className="font-semibold">
           Logout
         </button>
       </div>
       {/* admin */}
-      <div>
-        
-      </div>
+      <div></div>
     </div>
   );
 };

@@ -2,6 +2,7 @@ const User = require("../models/users");
 const asyncHandler = require("../middleware/asyncHandler");
 const CustomError = require("../errors/CustomError");
 const generateToken = require("../utils/generateToken");
+const generateMail = require("../utils/generateMail");
 let globalOTP;
 
 // Register User
@@ -25,7 +26,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
-    gender,
+    gender:gender.toLowerCase(),
     phoneNumber,
     isAdmin: isFirstUser,
   });
@@ -49,6 +50,7 @@ exports.generateOTP = asyncHandler(async (req, res) => {
   const otp = Math.floor(100000 + Math.random() * 900000);
   globalOTP = otp.toString();
   //send this otp code to the email as planned
+  generateMail(email, otp);
   res.json({ success: true, message: "Check your mail for OTP." });
 });
 
