@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import {fetchProductData} from './apiCall'
 
 function Admin() {
-  // JavaScript function to handle name truncation
-  const handleNameHover = (event) => {
-    const element = event.target;
-    if (element.scrollWidth > element.offsetWidth) {
-      element.setAttribute("title", element.textContent);
-    } else {
-      element.removeAttribute("title");
-    }
-  };
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        fetchProductData(setProducts,navigate,dispatch);
+      }, []);
 
   return (
     <div className="p-4">
@@ -93,21 +94,21 @@ function Admin() {
             <tr>
               <td
                 className="p-3 hover:text-indigo-700 truncate w-32 cursor-pointer"
-                onMouseEnter={handleNameHover}
+                title="product1"
               >
-                Product 1 Product 1 Product 11 lorem
-              </td>
-              <td className="p-3">$10.99</td>
-              <td className="p-3">100</td>
-              <td className="p-3">Electronics</td>
-              <td className="p-3">Description for Product 1</td>
-              <td className="p-3">
-                <img
-                  src=""
-                  alt="Product 1"
-                  className="h-12 w-12 object-cover"
-                />
-              </td>
+                {products.name}
+                </td>
+                <td className="p-3">${products.price}</td>
+                <td className="p-3">{products.quantity}</td>
+                <td className="p-3">{products.category}</td>
+                <td className="p-3">{products.description}</td>
+                <td className="p-3">
+                  <img
+                    src={products.imageUrl}
+                    alt={products.name}
+                    className="h-12 w-12 object-cover"
+                  />
+                </td>
               <td className="p-3">
                 <button
                   type="button"
@@ -118,39 +119,6 @@ function Admin() {
                 <button
                   type="button"
                   className="bg-red-700 text-white p-2 rounded hover:bg-red-800 ml-2 text-sm"
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td
-                className="p-3 hover:text-indigo-700 truncate w-32 cursor-pointer"
-                onMouseEnter={handleNameHover}
-              >
-                Product 2 Product 2 Product 2 Product 2
-              </td>
-              <td className="p-3">$20.99</td>
-              <td className="p-3">50</td>
-              <td className="p-3">Clothing</td>
-              <td className="p-3">Description for Product 2</td>
-              <td className="p-3">
-                <img
-                  src=""
-                  alt="Product 2"
-                  className="h-12 w-12 object-cover"
-                />
-              </td>
-              <td className="p-3">
-                <button
-                  type="button"
-                  className="bg-indigo-700 text-white p-2 rounded hover-bg-indigo-800 text-sm"
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  className="bg-red-700 text-white p-2 rounded hover-bg-red-800 ml-2 text-sm"
                 >
                   Delete
                 </button>
