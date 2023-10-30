@@ -8,6 +8,7 @@ const Cart = React.lazy(() => import("../pages/Cart"));
 const Wishlist = React.lazy(() => import("../pages/Wishlist"));
 const Search = React.lazy(() => import("../pages/Search"));
 const ProductPage = React.lazy(() => import("../pages/ProductPage"));
+const Admin = React.lazy(() => import("../pages/Admin"));
 
 const allRoutes = [
   {
@@ -63,6 +64,12 @@ const allRoutes = [
     path: "/orderinfo/:id",
     element: <Orderinfo />,
     status: false,
+  },
+  {
+    id:10,
+    path:"/admin",
+    element:<Admin/>,
+    status:false,
   },
 ];
 export default allRoutes;
