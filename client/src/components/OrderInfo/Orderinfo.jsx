@@ -10,7 +10,10 @@ const OrderInfo = () => {
     date: "October 25, 2023",
     price: 99.99,
     quantity: 2,
+    orderState: "Pending",
   };
+
+  const cancelOrder = () => {};
 
   return (
     <div className="container mt-3 md:my-8 px-4 mx-auto">
@@ -40,12 +43,29 @@ const OrderInfo = () => {
               <span className="font-semibold">Date Ordered:</span> {order.date}
             </p>
             <p className="mb-2">
-              <span className="font-semibold">Price:</span> $
+              <span className="font-semibold">Price:</span> ₹
               {order.price.toFixed(2)}
             </p>
             <p className="mb-2">
               <span className="font-semibold">Quantity:</span> {order.quantity}
             </p>
+            <div className="flex gap-x-4">
+              <span className="font-semibold">Status: </span>
+              <p className="text-red-400 font-semibold">{order.orderState}</p>
+            </div>
+            <div
+              className={`mt-4 ${
+                order.orderState !== "Delivered" ? "block" : "hidden"
+              }`}
+            >
+              <button
+                type="button"
+                onClick={cancelOrder}
+                className="mx-auto bg-white text-red-500 border border-red-500 block py-2 px-3 rounded-sm"
+              >
+                Cancel order
+              </button>
+            </div>
           </div>
         </div>
       </div>

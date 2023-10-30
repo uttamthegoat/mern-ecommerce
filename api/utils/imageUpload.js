@@ -21,8 +21,8 @@ const imageUpload = async (file) => {
   };
 
   const result = await cloudinary.uploader.upload(
-    `data:image/jpeg;base64,${fileStr}`,
-    transformationOptions
+    `data:image/jpeg;base64,${fileStr}`
+    // transformationOptions
   );
   if (!result) throw new CustomError(400, false, "Image not uploaded!");
   const url = result.secure_url;

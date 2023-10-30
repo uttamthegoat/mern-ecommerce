@@ -5,6 +5,7 @@ const {
   getAllOrders,
   getOrder,
   placeOrder,
+  cancelOrder,
 } = require("../controllers/orderController");
 
 // get all orders of a customer
@@ -17,6 +18,6 @@ router.route("/get-order").get(authMiddleware, getOrder);
 router.route("/place-order").post(authMiddleware, placeOrder);
 
 // delete a specific order of a customer if it is not delivered
-// router.route("/place-order").post(authMiddleware, placeOrder);
+router.route("/cancel-order").delete(authMiddleware, cancelOrder);
 
 module.exports = router;
