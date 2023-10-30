@@ -16,17 +16,22 @@ function Admin() {
   const [description, setDescription] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
   
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedimage(file);
   };
 
-  const handleCreateProduct = () => {
-    createProduct(productFormData, navigate, dispatch);
+  const handleCreateProduct = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("image", image);
+    createProduct(formData, navigate, dispatch);
   };
 
   useEffect(() => {
@@ -39,7 +44,7 @@ function Admin() {
         <h2 className="text-xl font-semibold text-indigo-700 mb-4">
           Add Product
         </h2>
-        <form className="w-full max-w-md" onSubmit={handleSubmit}>
+        <form className="w-full max-w-md" onSubmit={handleCreateProduct}>
           <div className="flex flex-wrap -mx-3 mb-4">
             <div className="w-full px-3 mb-2 md:w-1/2">
               <label className="block mb-1 text-gray-700 text-sm">

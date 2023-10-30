@@ -4,20 +4,9 @@ import { showAlert } from "../../features/alert/alertSlice";
 
 
 // create products in admin page
-export const createProduct = (name, price, quantity, category, description, image, navigate, dispatch) => {
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("price", price);
-    formData.append("quantity", quantity);
-    formData.append("category", category);
-    formData.append("description", description);
-    formData.append("image", image);
+export const createProduct = (formData, navigate, dispatch) => {
     axios
-        .post("/products/create-product", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data",
-            },
-        })
+        .post("/products/create-product", formData)
         .then((res) => {
             if (res.data.success) {
                 dispatch(showAlert({ message: "Product created successfully", type: "success" }));
