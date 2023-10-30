@@ -10,6 +10,25 @@ const WishList = () => {
       image:
         "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VYj5yD8jSmfB2bk9s5lihAHaLG%26pid%3DApi&f=1&ipt=a82fe313c3fc7f47be0b4426f47705583896b09510e703da0e9eb7c3f94d7334&ipo=images", // Replace with valid image URL
     },
+    {
+      id: 2,
+      name: " Product 1",
+      image:
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VYj5yD8jSmfB2bk9s5lihAHaLG%26pid%3DApi&f=1&ipt=a82fe313c3fc7f47be0b4426f47705583896b09510e703da0e9eb7c3f94d7334&ipo=images", // Replace with valid image URL
+    },
+    {
+      id: 3,
+      name: " Product 1",
+      image:
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VYj5yD8jSmfB2bk9s5lihAHaLG%26pid%3DApi&f=1&ipt=a82fe313c3fc7f47be0b4426f47705583896b09510e703da0e9eb7c3f94d7334&ipo=images", // Replace with valid image URL
+    },
+    {
+      id: 4,
+      name: " Product 1",
+      image:
+        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VYj5yD8jSmfB2bk9s5lihAHaLG%26pid%3DApi&f=1&ipt=a82fe313c3fc7f47be0b4426f47705583896b09510e703da0e9eb7c3f94d7334&ipo=images", // Replace with valid image URL
+    },
+    
   ]);
 
   const removeFromWishlist = () => {};
