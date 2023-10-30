@@ -1,60 +1,103 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {fetchProductData} from './apiCall'
+import { fetchProductData, createProduct } from "./apiCall";
 
 function Admin() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const [products, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [selectedimage, setSelectedimage] = useState(null);
 
-    useEffect(() => {
-        fetchProductData(setProducts,navigate,dispatch);
-      }, []);
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+  
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedimage(file);
+  };
+
+  const handleCreateProduct = () => {
+    createProduct(productFormData, navigate, dispatch);
+  };
+
+  useEffect(() => {
+    fetchProductData(setProducts, navigate, dispatch);
+  }, []);
 
   return (
     <div className="p-4">
       <div className="my-4">
-        <h2 className="text-xl font-semibold text-indigo-700 mb-4">Add Product</h2>
-        <form className="w-full max-w-md">
+        <h2 className="text-xl font-semibold text-indigo-700 mb-4">
+          Add Product
+        </h2>
+        <form className="w-full max-w-md" onSubmit={handleSubmit}>
           <div className="flex flex-wrap -mx-3 mb-4">
             <div className="w-full px-3 mb-2 md:w-1/2">
-              <label className="block mb-1 text-gray-700 text-sm">Product Name</label>
+              <label className="block mb-1 text-gray-700 text-sm">
+                Product Name
+              </label>
               <input
                 type="text"
                 placeholder="Product Name"
                 className="w-full p-2 rounded border"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
               />
             </div>
             <div className="w-full px-3 mb-2 md:w-1/2">
-              <label className="block mb-1 text-gray-700 text-sm">Product Price</label>
+              <label className="block mb-1 text-gray-700 text-sm">
+                Product Price
+              </label>
               <input
                 type="number"
                 placeholder="Product Price"
                 className="w-full p-2 rounded border"
+                value={price}
+                onChange={(event) => setPrice(event.target.value)}
               />
             </div>
             <div className="w-full px-3 mb-2 md:w-1/2">
-              <label className="block mb-1 text-gray-700 text-sm">Quantity</label>
+              <label className="block mb-1 text-gray-700 text-sm">
+                Quantity
+              </label>
               <input
                 type="number"
                 placeholder="Quantity"
                 className="w-full p-2 rounded border"
+                value={quantity}
+                onChange={(event) => setQuantity(event.target.value)}
               />
             </div>
             <div className="w-full px-3 mb-2 md:w-1/2">
-              <label className="block mb-1 text-gray-700 text-sm">Category</label>
+              <label className="block mb-1 text-gray-700 text-sm">
+                Category
+              </label>
               <input
                 type="text"
                 placeholder="Category"
                 className="w-full p-2 rounded border"
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
               />
             </div>
             <div className="w-full px-3 mb-2">
-              <label className="block mb-1 text-gray-700 text-sm">Description</label>
+              <label className="block mb-1 text-gray-700 text-sm">
+                Description
+              </label>
               <textarea
                 placeholder="Description"
                 className="w-full p-2 rounded border"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
               ></textarea>
             </div>
             <div className="w-full px-3 mb-2">
@@ -63,6 +106,7 @@ function Admin() {
                 type="file"
                 accept="image/*"
                 className="w-full p-2"
+                onChange={handleFileChange}
               />
             </div>
           </div>
@@ -77,7 +121,9 @@ function Admin() {
         </form>
       </div>
       <div>
-        <h2 className="text-xl font-semibold text-indigo-700 mb-4">Product List</h2>
+        <h2 className="text-xl font-semibold text-indigo-700 mb-4">
+          Product List
+        </h2>
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-indigo-200">
@@ -97,18 +143,18 @@ function Admin() {
                 title="product1"
               >
                 {products.name}
-                </td>
-                <td className="p-3">${products.price}</td>
-                <td className="p-3">{products.quantity}</td>
-                <td className="p-3">{products.category}</td>
-                <td className="p-3">{products.description}</td>
-                <td className="p-3">
-                  <img
-                    src={products.imageUrl}
-                    alt={products.name}
-                    className="h-12 w-12 object-cover"
-                  />
-                </td>
+              </td>
+              <td className="p-3">${products.price}</td>
+              <td className="p-3">{products.quantity}</td>
+              <td className="p-3">{products.category}</td>
+              <td className="p-3">{products.description}</td>
+              <td className="p-3">
+                <img
+                  src={products.imageUrl}
+                  alt={products.name}
+                  className="h-12 w-12 object-cover"
+                />
+              </td>
               <td className="p-3">
                 <button
                   type="button"

@@ -1,15 +1,28 @@
 import axios from "../../utils/axiosConfig";
 import { showAlert } from "../../features/alert/alertSlice";
 
+
+
 // create products in admin page
-export const a1 = (navigate, dispatch) => {
+export const createProduct = (name, price, quantity, category, description, image, navigate, dispatch) => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("image", image);
     axios
-        .post("/products/create-product", createProduct)
+        .post("/products/create-product", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        })
         .then((res) => {
             if (res.data.success) {
-
-                dispatch();
-                navigate();
+                dispatch(showAlert({ message: "Product created successfully", type: "success" }));
+                clearForm();
+                navigate("/products");
             }
         })
         .catch((error) => {
