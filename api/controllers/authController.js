@@ -42,7 +42,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
 });
 
 //generate token
-//@route POST api/auth/generateOTP
+//@route POST api/auth/generate-otp
 exports.generateOTP = asyncHandler(async (req, res) => {
   const { email } = req.body;
   if (email === "")
@@ -55,7 +55,7 @@ exports.generateOTP = asyncHandler(async (req, res) => {
 });
 
 //verify token
-//@route POST api/auth/verifyOTP
+//@route POST api/auth/verify-otp
 exports.verifyOTP = asyncHandler(async (req, res) => {
   const receivedOTP = req.body.otp;
 
