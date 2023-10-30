@@ -1,10 +1,12 @@
-import React from 'react';
-import ProductList from '../components/Admin/ProductList';
+import React from "react";
+import ProductList from "../components/Admin/ProductList";
 
-const Admin= () => {
+const Admin = () => {
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Admin Products Page</h1>
+      <div>
+        <h1 className="text-2xl font-bold mb-4">Admin Products Page</h1>
+      </div>
       <ProductList />
     </div>
   );

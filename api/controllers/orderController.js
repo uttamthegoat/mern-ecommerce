@@ -21,4 +21,17 @@ exports.getOrder = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, order });
 });
 
-exports.placeOrder = asyncHandler(async (req, res) => {});
+exports.placeOrder = asyncHandler(async (req, res) => {
+  const { orderDate, product, quantity } = req.body;
+  const id = req.user._id;
+
+  const newOrder = await Order.create({
+    user: id,
+    orderDate,
+    product,
+    quantity,
+  });
+   if(!newOrder) throw new CustomError(400, false, "Order not placed!");
+
+   res.status(200).json({success:true, message: " Your order has been placed! Check your orders."})
+});
