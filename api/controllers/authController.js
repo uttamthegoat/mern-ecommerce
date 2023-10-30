@@ -2,79 +2,73 @@ const User = require("../models/users");
 const asyncHandler = require("../middleware/asyncHandler");
 const CustomError = require("../errors/CustomError");
 const generateToken = require("../utils/generateToken");
+const generateMail = require("../utils/generateMail");
 let globalOTP;
-
-
 
 // Register User
 //@route POST api/auth/signup
 exports.registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password,gender,phoneNumber } = req.body;
+  const { name, email, password, gender, phoneNumber } = req.body;
 
   const userExists = await User.findOne({ email });
   //checking if the user exists
   if (userExists)
-    throw new CustomError(401, false, "User already exists. Please Login!");
+    throw new CustomError(
+      401,
+      false,
+      "You have already registered. Please Sign in!"
+    );
 
   // If there are no users yet, make this user an admin
   const isFirstUser = (await User.countDocuments({})) === 0;
 
-  // do not generate token, instead implement otp generation and verification
   const user = await User.create({
     name,
     email,
     password,
-    gender,
+    gender:gender.toLowerCase(),
     phoneNumber,
     isAdmin: isFirstUser,
   });
 
   if (user) {
-    // generateToken(res, user);
     res.status(201).json({
-      success:true,
-      message:"Signup Successfull,Please Login!",
+      success: true,
+      message: "Signup Successfull,Please Sign in!",
     });
   } else {
     throw new CustomError(500, false, "Invalid user");
   }
 });
 
-
-
-
 //generate token
-//@route POST api/auth/generateOTP
+//@route POST api/auth/generate-otp
 exports.generateOTP = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  if (email === "")
+    throw new CustomError(400, false, "Enter your email first!");
   const otp = Math.floor(100000 + Math.random() * 900000);
-  globalOTP=otp.toString();
+  globalOTP = otp.toString();
   //send this otp code to the email as planned
-  res.json({ otp });
-})
-
-
-
+  generateMail(email, otp);
+  res.json({ success: true, message: "Check your mail for OTP." });
+});
 
 //verify token
-//@route POST api/auth/verifyOTP
+//@route POST api/auth/verify-otp
 exports.verifyOTP = asyncHandler(async (req, res) => {
-    const receivedOTP = req.body.otp; // Get the OTP received from the user
+  const receivedOTP = req.body.otp;
 
   // Check if the received OTP matches the generated OTP
   if (receivedOTP === globalOTP) {
-    // sendVerificationEmail(req.body.email);
     res.status(200).json({
-      success:true,
-      message:"Email Verified!",
+      success: true,
+      message: "Email Verified! Proceed to signup.",
     });
   } else {
-    // OTPs do not match
-    throw new CustomError(400,false,'OTP verification failed');
+    throw new CustomError(400, false, "E-mail verification failed!");
   }
-})
-
-
-
+});
 
 //Login User
 //@route POST api/auth/login
@@ -96,9 +90,6 @@ exports.loginUser = asyncHandler(async (req, res) => {
     message: "Login successfull!",
   });
 });
-
-
-
 
 //logout user
 //@route POST api/auth/logout

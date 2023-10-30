@@ -12,7 +12,7 @@ const authMiddleware = require("../middleware/authMiddleware");
 router.route("/signup").post(registerUser);
 router.route("/login").post(loginUser);
 router.route("/logout").get(authMiddleware, logoutUser);
-router.route("/generate-otp").get(generateOTP);
+router.route("/generate-otp").post(generateOTP);
 router.route("/verify-otp").post(verifyOTP);
 
 module.exports = router;

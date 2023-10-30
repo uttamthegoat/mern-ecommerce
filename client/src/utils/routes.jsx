@@ -1,6 +1,5 @@
 import React from "react";
 import Orderinfo from "../pages/Orderinfo";
-import Admin from "../pages/Admin";
 const Home = React.lazy(() => import("../pages/Home"));
 const Authenticate = React.lazy(() => import("../pages/Authenticate"));
 const Profile = React.lazy(() => import("../pages/Profile"));
@@ -9,6 +8,7 @@ const Cart = React.lazy(() => import("../pages/Cart"));
 const Wishlist = React.lazy(() => import("../pages/Wishlist"));
 const Search = React.lazy(() => import("../pages/Search"));
 const ProductPage = React.lazy(() => import("../pages/ProductPage"));
+const Admin = React.lazy(() => import("../pages/Admin"));
 
 const allRoutes = [
   {
