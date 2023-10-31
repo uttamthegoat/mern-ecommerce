@@ -9,7 +9,7 @@ exports.getAllOrders = asyncHandler(async (req, res) => {
   const allOrders = await Order.find({ user: id }).populate("product");
   if (!allOrders) throw new CustomError(400, false, "Orders were not found!");
 
-  res.status(200).json({ success: true, results: allOrders });
+  res.status(200).json({ success: true, orders: allOrders });
 });
 
 exports.getOrder = asyncHandler(async (req, res) => {

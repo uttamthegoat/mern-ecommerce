@@ -1,10 +1,22 @@
 import axios from "../../utils/axiosConfig";
 import { showAlert } from "../../features/alert/alertSlice";
 
-export const get_All_Orders = (navigate, dispatch) => {
+export const get_All_Orders = (
+  setOrders,
+  setTotalOrders,
+  navigate,
+  dispatch
+) => {
   axios
     .get("/orders/get-all-orders")
-    .then((res) => {})
+    .then((res) => {
+      if (res.data.success) {
+        const { orders } = res.data;
+        setTotalOrders(orders.length);
+        setOrders([...orders]);
+      }
+      f;
+    })
     .catch((error) => {
       const message = error.response.data.message,
         type = "error";
@@ -40,7 +52,13 @@ export const get_Order = (id, setOrder, navigate, dispatch) => {
 export const cancel_Order = (id, navigate, dispatch) => {
   axios
     .delete("/orders/cancel-order", { id })
-    .then((res) => {})
+    .then((res) => {
+      if (res.data.success) {
+        const message = res.data.message,
+          type = "success";
+        dispatch(showAlert({ message, type }));
+      }
+    })
     .catch((error) => {
       const message = error.response.data.message,
         type = "error";

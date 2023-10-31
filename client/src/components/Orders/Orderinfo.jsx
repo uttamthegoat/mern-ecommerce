@@ -1,5 +1,5 @@
 import React from "react";
-import { get_Order } from "./apiCall";
+import { get_Order, cancel_Order } from "./apiCall";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -19,7 +19,10 @@ const OrderInfo = ({ id }) => {
     // get_Order(id, setOrder, navigate, dispatch);
   }, []);
 
-  const cancelOrder = () => {};
+  const cancelOrder = () => {
+    const id = order._id;
+    // cancel_Order(id, navigate, dispatch);
+  };
 
   return (
     <div className="container mt-3 md:my-8 px-4 mx-auto">
