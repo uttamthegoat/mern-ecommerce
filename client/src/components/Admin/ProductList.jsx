@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchProductData, createProduct } from "./apiCall";
+import { fetchProductData, createProduct,updateProduct,  } from "./apiCall";
 
 function Admin() {
   const dispatch = useDispatch();
@@ -32,6 +32,24 @@ function Admin() {
     formData.append("description", description);
     formData.append("image", image);
     createProduct(formData, navigate, dispatch);
+  };
+
+  const handleUpdateProduct = (productId) => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("image", selectedImage);
+
+    // Call the updateProduct function with the product ID
+    updateProduct(productId, formData, navigate, dispatch);
+  };
+
+  const handleDeleteProduct = (productId) => {
+    // Call the deleteProduct function with the product ID
+    deleteProduct(productId, navigate, dispatch);
   };
 
   useEffect(() => {
@@ -164,6 +182,7 @@ function Admin() {
                 <button
                   type="button"
                   className="bg-indigo-700 text-white p-2 rounded hover:bg-indigo-800 text-sm"
+                  onClick={() => handleUpdateProduct(products.id)}
                 >
                   Edit
                 </button>

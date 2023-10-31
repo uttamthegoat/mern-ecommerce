@@ -75,12 +75,11 @@ export const a3 = (loginDet, navigate, dispatch) => {
 
 
 // edit a particular products in admin page
-export const a4 = (loginDet, navigate, dispatch) => {
+export const updateProduct = (productId, formData, navigate, dispatch) => {
     axios
-        .put("/products/edit-product", updateProduct)
+        .put("/products/edit-product", formData)
         .then((res) => {
             if (res.data.success) {
-
                 dispatch();
                 navigate();
             }
@@ -98,14 +97,14 @@ export const a4 = (loginDet, navigate, dispatch) => {
 
 
 // Delete products in admin page
-export const a5 = (loginDet, navigate, dispatch) => {
+export const deleteProduct = (productId, navigate, dispatch) => {
     axios
-        .delete("/products/delete-product", deleteProduct)
+        .delete("/products/delete-product")
         .then((res) => {
             if (res.data.success) {
-                l
-                dispatch();
-                navigate();
+                // Handle success, if needed
+                dispatch(); // Dispatch any actions on success
+                navigate(); // Navigate to a specific page or handle routing
             }
         })
         .catch((error) => {
