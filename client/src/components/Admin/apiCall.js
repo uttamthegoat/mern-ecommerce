@@ -75,9 +75,9 @@ export const a3 = (loginDet, navigate, dispatch) => {
 
 
 // edit a particular products in admin page
-export const updateProduct = (productId, formData, navigate, dispatch) => {
+export const updateProduct = (id, formData, navigate, dispatch) => {
     axios
-        .put("/products/edit-product", formData)
+        .put(`/products/edit-product/${id}`, formData)
         .then((res) => {
             if (res.data.success) {
                 dispatch();
@@ -97,9 +97,9 @@ export const updateProduct = (productId, formData, navigate, dispatch) => {
 
 
 // Delete products in admin page
-export const deleteProduct = (productId, navigate, dispatch) => {
+export const deleteProduct = (id, navigate, dispatch) => {
     axios
-        .delete("/products/delete-product")
+        .delete(`/products/delete-product/${id}`)
         .then((res) => {
             if (res.data.success) {
                 // Handle success, if needed
