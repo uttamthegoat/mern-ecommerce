@@ -1,17 +1,35 @@
 import React, { useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { place_Order } from "../Orders/apiCall";
 
 const ProductPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [orderData, setOrderData] = useState({
+    orderDate: "null",
+    product: null, // remaining
+    quantity: 0,
+  });
   const [amount, setAmount] = useState(1);
 
   const decreaseAmount = () => {
-    if (amount > 1) {
-      setAmount((prev) => prev - 1);
-    }
+    if (amount > 1) setAmount((prev) => prev - 1);
   };
 
   const increaseAmount = () => {
-    setAmount((prev) => prev + 1);
+    if (amount < 10) setAmount((prev) => prev + 1);
+  };
+
+  const placeOrder = () => {
+    const currentDate = new Date();
+    const formattedDate = `${currentDate
+      .toLocaleDateString()
+      .replace(/\//g, "-")}`;
+    setOrderData({ ...orderData, orderDate: formattedDate, quantity: amount });
+    // place_Order(orderData, navigate, dispatch)
   };
 
   return (
@@ -30,7 +48,7 @@ const ProductPage = () => {
         <h1 className="text-3xl font-bold text-center">laptop</h1>
         <h6 className="text-2xl font-semibold text-center">₹ 59999.00</h6>
         <div>
-          <p className="text-green-600">{4999} in stock</p>
+          <p className="text-green-600">{10} in stock</p>
         </div>
         <div className="flex flex-row items-center justify-center gap-12">
           <button
@@ -51,7 +69,10 @@ const ProductPage = () => {
           <button className="bg-violet-800 text-white font-semibold py-3 w-28 rounded-xl">
             Add to Cart
           </button>
-          <button className="bg-violet-800 text-white font-semibold py-3 w-28 rounded-xl">
+          <button
+            onClick={placeOrder}
+            className="bg-violet-800 text-white font-semibold py-3 w-28 rounded-xl"
+          >
             Buy Now
           </button>
         </div>

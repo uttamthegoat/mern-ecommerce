@@ -73,7 +73,13 @@ export const cancel_Order = (id, navigate, dispatch) => {
 export const place_Order = (orderData, navigate, dispatch) => {
   axios
     .post("/orders/place-order", orderData)
-    .then((res) => {})
+    .then((res) => {
+      if (res.data.success) {
+        const message = res.data.message,
+          type = "success";
+        dispatch(showAlert({ message, type }));
+      }
+    })
     .catch((error) => {
       const message = error.response.data.message,
         type = "error";
