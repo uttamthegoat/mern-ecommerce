@@ -57,18 +57,22 @@ exports.getProducts = asyncHandler(async (req, res) => {
   // const lastIndex = page * pageSize;
 
   // const results = products.slice(startIndex, lastIndex);
-  // const totalProducts = products.length;
+  const totalProducts = products.length;
 
-  res.status(200).json({ success: true, totalProducts, results });
+  res.status(200).json({ success: true, totalProducts, results: products });
 });
 
 // Update a product
 exports.updateProduct = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const updatedData = req.body;
+  const { id } = req.params;
 
-  const updatedProduct = await Product.findByIdAndUpdate(id, req.body, {
-    new: true,
-  });
+
+  const updatedProduct = await Product.findByIdAndUpdate(
+    id,
+    { $set: updatedData },
+    { new: true } // To return the updated document
+  );
 
   res.status(200).json({
     success: true,

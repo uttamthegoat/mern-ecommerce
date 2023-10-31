@@ -24,7 +24,7 @@ router.route("/all-products").get(authMiddleware, getProducts);
 router.route("/fetch-product/:id").get(authMiddleware, fetchProduct);
 
 // edit a product
-router.route("/edit-product").put(authMiddleware, updateProduct);
+router.route("/edit-product/:id").put(authMiddleware, updateProduct);
 
 // delete a product
 router.route("/delete-product").delete(authMiddleware, deleteProduct);
