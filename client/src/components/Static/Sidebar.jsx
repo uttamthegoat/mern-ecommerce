@@ -8,6 +8,7 @@ import {
   faBagShopping,
   faBookmark,
   faArrowRightFromBracket,
+  faLock,
 } from "@fortawesome/free-solid-svg-icons";
 import { defaultImage } from "../../assets/constants";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -36,7 +37,7 @@ const Sidebar = () => {
         open ? "block" : "hidden"
       }`}
     >
-      <div className="px-2 flex justify-end mb-4">
+      <div className="px-2 flex justify-end mb-1 md:mb-4">
         <button
           type="button"
           className="w-10 h-10 bg-gray-400 rounded-lg"
@@ -61,22 +62,30 @@ const Sidebar = () => {
         <hr className={`w-11/12 mx-auto ${styles.Sidebar_Divider_border}`} />
         <div className="flex items-center gap-3 ps-6 my-3 hover:text-white">
           <FontAwesomeIcon icon={faUser} />
-          <Link to="/profile" className="font-semibold">Your Profile</Link>
+          <Link to="/profile" className="font-semibold">
+            Your Profile
+          </Link>
         </div>
         <hr className={`w-11/12 mx-auto ${styles.Sidebar_Divider_border}`} />
       </div>
       <section className="ps-6 space-y-4">
         <div className="flex items-center gap-3 mt-4 hover:text-white">
           <FontAwesomeIcon icon={faCartPlus} />
-          <Link to="/cart" className="font-semibold">My Cart</Link>
+          <Link to="/cart" className="font-semibold">
+            My Cart
+          </Link>
         </div>
         <div className="flex items-center gap-3 hover:text-white">
           <FontAwesomeIcon icon={faBagShopping} />
-          <Link to="/orders" className="font-semibold">My Orders</Link>
+          <Link to="/orders" className="font-semibold">
+            My Orders
+          </Link>
         </div>
         <div className="flex items-center gap-3 hover:text-white">
           <FontAwesomeIcon icon={faBookmark} />
-          <Link to="/wishlist" className="font-semibold">My Wishlist</Link>
+          <Link to="/wishlist" className="font-semibold">
+            My Wishlist
+          </Link>
         </div>
       </section>
       <hr className={`w-11/12 mx-auto mt-4 ${styles.Sidebar_Divider_border}`} />
@@ -87,7 +96,29 @@ const Sidebar = () => {
         </button>
       </div>
       {/* admin */}
-      <div></div>
+      {user.isAdmin && (
+        <div className="my-3">
+          <hr
+            className={`w-11/12 mx-auto mt-4 ${styles.Sidebar_Divider_border}`}
+          />
+          <div className="flex items-center gap-3 ps-6 py-5 text-xl font-semibold">
+            <FontAwesomeIcon icon={faLock} />
+            <p className="Admin-panel">Admin Panel</p>
+          </div>
+          <div className="ps-6 space-y-4">
+            <section className="hover:text-white">
+              <Link to="/admin" className="font-semibold">
+                Products
+              </Link>
+            </section>
+            <section className="hover:text-white">
+              <Link to="/admin/orders" className="font-semibold">
+                Orders
+              </Link>
+            </section>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -45,7 +45,8 @@ exports.placeOrder = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: " Your order has been placed! Check your orders.",
+    id: newOrder._id,
+    message: " Your order has been placed!.",
   });
 });
 

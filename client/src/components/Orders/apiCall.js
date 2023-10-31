@@ -78,6 +78,8 @@ export const place_Order = (orderData, navigate, dispatch) => {
         const message = res.data.message,
           type = "success";
         dispatch(showAlert({ message, type }));
+        const { id } = res.data;
+        navigate(`/orderinfo/${id}`);
       }
     })
     .catch((error) => {

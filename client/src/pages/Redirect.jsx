@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Redirect = () => {
   const navigate = useNavigate();
-  const returnHome = () => navigate(-1);
+  const returnHome = () => navigate("/");
   return (
     <div id="error-page">
       <div className="content">
