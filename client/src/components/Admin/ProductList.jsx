@@ -1,233 +1,199 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { fetchProductData, createProduct,updateProduct,  } from "./apiCall";
 
 function Admin() {
-  const [products, setProducts] = useState([
-    { id: 1, name: "Product 1", price: 10.99, quantity: 100, category: "electronics", description: "Description for Product 1", imageUrl: "" },
-    { id: 2, name: "Product 2", price: 20.99, quantity: 50, category: "clothing", description: "Description for Product 2", imageUrl: "" },
-    // Add more sample products here
-  ]);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [selectedimage, setSelectedimage] = useState(null);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    price: "",
-    quantity: "",
-    category: "",
-    description: "",
-    imageFile: null,
-  });
+  const [name, setName] = useState("");
+  const [price, setPrice] = useState(0);
+  const [quantity, setQuantity] = useState(0);
+  const [category, setCategory] = useState("");
+  const [description, setDescription] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
-  const [editingProductId, setEditingProductId] = useState(null);
-
-  const [isEditing, setIsEditing] = useState(false);
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-
-    if (!formData.name || !formData.price) return;
-
-    if (editingProductId !== null) {
-      // Editing an existing product
-      const updatedProducts = products.map((product) => {
-        if (product.id === editingProductId) {
-          return {
-            ...product,
-            name: formData.name,
-            price: parseFloat(formData.price),
-            quantity: parseInt(formData.quantity),
-            category: formData.category,
-            description: formData.description,
-            imageUrl: URL.createObjectURL(formData.imageFile), // Display uploaded image
-          };
-        }
-        return product;
-      });
-      setProducts(updatedProducts);
-    } else {
-      // Creating a new product
-      const newProduct = {
-        id: Date.now(), // You can use a better way to generate IDs
-        name: formData.name,
-        price: parseFloat(formData.price),
-        quantity: parseInt(formData.quantity),
-        category: formData.category,
-        description: formData.description,
-        imageUrl: URL.createObjectURL(formData.imageFile), // Display uploaded image
-      };
-      setProducts([...products, newProduct]);
-    }
-
-    setFormData({
-      name: "",
-      price: "",
-      quantity: "",
-      category: "",
-      description: "",
-      imageFile: null,
-    });
-    setEditingProductId(null);
-    setIsEditing(false);
+  
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    setSelectedimage(file);
   };
 
-  const deleteProduct = (productId) => {
-    const updatedProducts = products.filter(
-      (product) => product.id !== productId
-    );
-    setProducts(updatedProducts);
+  const handleCreateProduct = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("image", image);
+    createProduct(formData, navigate, dispatch);
   };
 
-  const startEditing = (product) => {
-    setFormData({
-      name: product.name,
-      price: product.price,
-      quantity: product.quantity,
-      category: product.category,
-      description: product.description,
-      imageFile: null,
-    });
-    setEditingProductId(product.id);
-    setIsEditing(true);
+  const handleUpdateProduct = (productId) => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    formData.append("category", category);
+    formData.append("description", description);
+    formData.append("image", selectedImage);
+
+    // Call the updateProduct function with the product ID
+    updateProduct(productId, formData, navigate, dispatch);
   };
+
+  const handleDeleteProduct = (productId) => {
+    // Call the deleteProduct function with the product ID
+    deleteProduct(productId, navigate, dispatch);
+  };
+
+  useEffect(() => {
+    fetchProductData(setProducts, navigate, dispatch);
+  }, []);
 
   return (
-    <div>
+    <div className="p-4">
       <div className="my-4">
-        <h2 className="text-lg font-semibold">
-          {isEditing ? "Edit Product" : "Add Product"}
+        <h2 className="text-xl font-semibold text-indigo-700 mb-4">
+          Add Product
         </h2>
-        <form onSubmit={handleFormSubmit} className="flex flex-col space-y-4">
-          <input
-            type="text"
-            placeholder="Product Name"
-            value={formData.name}
-            onChange={(e) =>
-              setFormData({ ...formData, name: e.target.value })
-            }
-            className="p-2 rounded border"
-          />
-          <input
-            type="number"
-            placeholder="Product Price"
-            value={formData.price}
-            onChange={(e) =>
-              setFormData({ ...formData, price: e.target.value })
-            }
-            className="p-2 rounded border"
-          />
-          <input
-            type="number"
-            placeholder="Quantity"
-            value={formData.quantity}
-            onChange={(e) =>
-              setFormData({ ...formData, quantity: e.target.value })
-            }
-            className="p-2 rounded border"
-          />
-          <input
-            type="text"
-            placeholder="category"
-            value={formData.category}
-            onChange={(e) =>
-              setFormData({ ...formData, category: e.target.value })
-            }
-            className="p-2 rounded border"
-          />
-          <input
-            type="text"
-            placeholder="Description"
-            value={formData.description}
-            onChange={(e) =>
-              setFormData({ ...formData, description: e.target.value })
-            }
-            className="p-2 rounded border"
-          />
-          <input
-            type="file"
-            accept="image/*"
-            onChange={(e) =>
-              setFormData({ ...formData, imageFile: e.target.files[0] })
-            }
-            className="p-2"
-          />
-          {formData.imageFile && (
-            <div className="w-1/2 p-2">
-              <span>{formData.imageFile.name}</span>
-              <button
-                type="button"
-                onClick={() =>
-                  setFormData({ ...formData, imageFile: null })
-                }
-                className="bg-red-500 text-white p-1 px-2 rounded ml-2 hover:bg-red-700"
-              >
-                Remove
-              </button>
+        <form className="w-full max-w-md" onSubmit={handleCreateProduct}>
+          <div className="flex flex-wrap -mx-3 mb-4">
+            <div className="w-full px-3 mb-2 md:w-1/2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Product Name
+              </label>
+              <input
+                type="text"
+                placeholder="Product Name"
+                className="w-full p-2 rounded border"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
             </div>
-          )}
-          <div className="flex space-x-2">
+            <div className="w-full px-3 mb-2 md:w-1/2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Product Price
+              </label>
+              <input
+                type="number"
+                placeholder="Product Price"
+                className="w-full p-2 rounded border"
+                value={price}
+                onChange={(event) => setPrice(event.target.value)}
+              />
+            </div>
+            <div className="w-full px-3 mb-2 md:w-1/2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Quantity
+              </label>
+              <input
+                type="number"
+                placeholder="Quantity"
+                className="w-full p-2 rounded border"
+                value={quantity}
+                onChange={(event) => setQuantity(event.target.value)}
+              />
+            </div>
+            <div className="w-full px-3 mb-2 md:w-1/2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Category
+              </label>
+              <input
+                type="text"
+                placeholder="Category"
+                className="w-full p-2 rounded border"
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+              />
+            </div>
+            <div className="w-full px-3 mb-2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Description
+              </label>
+              <textarea
+                placeholder="Description"
+                className="w-full p-2 rounded border"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+              ></textarea>
+            </div>
+            <div className="w-full px-3 mb-2">
+              <label className="block mb-1 text-gray-700 text-sm">Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                className="w-full p-2"
+                onChange={handleFileChange}
+              />
+            </div>
+          </div>
+          <div className="flex justify-end">
             <button
               type="button"
-              onClick={isEditing ? cancelEditing : null}
-              className="bg-blue-500 text-white p-2 px-6 rounded hover:bg-blue-700"
+              className="bg-indigo-700 text-white p-2 px-6 rounded hover:bg-indigo-800 text-sm"
             >
-              {isEditing ? "Cancel" : "Create"}
+              Create
             </button>
-            {isEditing ? (
-              <button
-                type="submit"
-                className="bg-green-500 text-white p-2 px-6 rounded hover:bg-green-700"
-              >
-                Save
-              </button>
-            ) : null}
           </div>
         </form>
       </div>
       <div>
-        <h2 className="text-lg font-semibold">Product List</h2>
+        <h2 className="text-xl font-semibold text-indigo-700 mb-4">
+          Product List
+        </h2>
         <table className="w-full border-collapse">
           <thead>
-            <tr className="bg-gray-200">
-              <th className="p-2">Name</th>
-              <th className="p-2">Price</th>
-              <th className="p-2">Quantity</th>
-              <th className="p-2">category</th>
-              <th className="p-2">Description</th>
-              <th className="p-2">Image</th>
-              <th className="p-2">Actions</th>
+            <tr className="bg-indigo-200">
+              <th className="p-3 text-gray-700 text-sm">Name</th>
+              <th className="p-3 text-gray-700 text-sm">Price</th>
+              <th className="p-3 text-gray-700 text-sm">Quantity</th>
+              <th className="p-3 text-gray-700 text-sm">Category</th>
+              <th className="p-3 text-gray-700 text-sm">Description</th>
+              <th className="p-3 text-gray-700 text-sm">Image</th>
+              <th className="p-3 text-gray-700 text-sm">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
-              <tr key={product.id}>
-                <td className="p-2 ">{product.name}</td>
-                <td className="p-2 ">${product.price.toFixed(2)}</td>
-                <td className="p-2 ">{product.quantity}</td>
-                <td className="p-2 ">{product.category}</td>
-                <td className="p-2 ">{product.description}</td>
-                <td className="p-2">
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    className="h-12 w-12 object-contain"
-                  />
-                </td>
-                <td className="p-2">
-                  <button
-                    type="button"
-                    onClick={() => startEditing(product)}
-                    className="bg-blue-500 text-white p-2 rounded hover:bg-blue-700"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => deleteProduct(product.id)}
-                    className="bg-red-500 text-white p-2 rounded hover:bg-red-700 ml-2"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
+            <tr>
+              <td
+                className="p-3 hover:text-indigo-700 truncate w-32 cursor-pointer"
+                title="product1"
+              >
+                {products.name}
+              </td>
+              <td className="p-3">${products.price}</td>
+              <td className="p-3">{products.quantity}</td>
+              <td className="p-3">{products.category}</td>
+              <td className="p-3">{products.description}</td>
+              <td className="p-3">
+                <img
+                  src={products.imageUrl}
+                  alt={products.name}
+                  className="h-12 w-12 object-cover"
+                />
+              </td>
+              <td className="p-3">
+                <button
+                  type="button"
+                  className="bg-indigo-700 text-white p-2 rounded hover:bg-indigo-800 text-sm"
+                  onClick={() => handleUpdateProduct(products.id)}
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  className="bg-red-700 text-white p-2 rounded hover:bg-red-800 ml-2 text-sm"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
