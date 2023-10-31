@@ -42,7 +42,7 @@ exports.createProduct = asyncHandler(async (req, res) => {
 
 // Get a specific product
 exports.fetchProduct = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
   const product = await Product.findById(id);
   if (!product) throw new CustomError(400, false, "Product not found!");
   res.status(200).json({ success: true, product });
@@ -52,12 +52,12 @@ exports.fetchProduct = asyncHandler(async (req, res) => {
 exports.getProducts = asyncHandler(async (req, res) => {
   const products = await Product.find();
   if (!products) throw new CustomError(400, false, "Products not found!");
-  const { page, pageSize } = req.query;
-  const startIndex = (page - 1) * pageSize;
-  const lastIndex = page * pageSize;
+  // const { page, pageSize } = req.query;
+  // const startIndex = (page - 1) * pageSize;
+  // const lastIndex = page * pageSize;
 
-  const results = products.slice(startIndex, lastIndex);
-  const totalProducts = products.length;
+  // const results = products.slice(startIndex, lastIndex);
+  // const totalProducts = products.length;
 
   res.status(200).json({ success: true, totalProducts, results });
 });

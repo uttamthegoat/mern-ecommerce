@@ -30,7 +30,7 @@ app.use("/api/search", require("./routes/searchRoutes"));
 app.use("/api/orders", require("./routes/orderRoutes"));
 
 app.get("/", (req, res) => {
-  res.send("Welcome to Ecommerce server");
+  res.send("Welcome to BuyBox server!");
 });
 
 // wrong route

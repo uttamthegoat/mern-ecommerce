@@ -5,7 +5,6 @@ const Product = require("../models/products");
 
 exports.getAllOrders = asyncHandler(async (req, res) => {
   const id = req.user._id;
-  console.log(req.user);
 
   const allOrders = await Order.find({ user: id }).populate("product");
   if (!allOrders) throw new CustomError(400, false, "Orders were not found!");
@@ -14,7 +13,7 @@ exports.getAllOrders = asyncHandler(async (req, res) => {
 });
 
 exports.getOrder = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   const order = await Order.findById(id).populate("product");
   if (!order) throw new CustomError(400, false, "Order Not found!");
@@ -25,12 +24,14 @@ exports.getOrder = asyncHandler(async (req, res) => {
 exports.placeOrder = asyncHandler(async (req, res) => {
   const { orderDate, product, quantity } = req.body;
   const id = req.user._id;
+  const { address } = req.user;
 
   const newOrder = await Order.create({
     user: id,
     orderDate,
     product,
     quantity,
+    address,
   });
   if (!newOrder) throw new CustomError(400, false, "Order not placed!");
 
@@ -51,9 +52,16 @@ exports.placeOrder = asyncHandler(async (req, res) => {
 exports.cancelOrder = asyncHandler(async (req, res) => {
   const { id } = req.body;
 
-  const deletedOrder = await Order.findByIdAndDelete(orderId);
-  if (!deletedOrder)
-    throw new CustomError(400, false, "Order was not deleted!");
+  const order = await Order.findById(id);
+  if (!order) throw new CustomError(400, false, "Order not found!");
+
+  const orderedProduct = await Product.findById(order.product);
+  if (!orderedProduct) throw new CustomError(400, false, "Product not found!");
+
+  orderedProduct.productInStock += order.quantity;
+
+  await orderedProduct.save();
+  await order.remove();
 
   res
     .status(200)

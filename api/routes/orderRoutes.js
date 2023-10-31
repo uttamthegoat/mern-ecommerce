@@ -12,7 +12,7 @@ const {
 router.route("/get-all-orders").get(authMiddleware, getAllOrders);
 
 // get a specific order of a customer
-router.route("/get-order").get(authMiddleware, getOrder);
+router.route("/get-order/:id").get(authMiddleware, getOrder);
 
 // place an order of a customer
 router.route("/place-order").post(authMiddleware, placeOrder);

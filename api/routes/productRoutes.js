@@ -21,7 +21,7 @@ router
 router.route("/all-products").get(authMiddleware, getProducts);
 
 // fetch a particular product
-router.route("/fetch-product").get(authMiddleware, fetchProduct);
+router.route("/fetch-product/:id").get(authMiddleware, fetchProduct);
 
 // edit a product
 router.route("/edit-product").put(authMiddleware, updateProduct);
