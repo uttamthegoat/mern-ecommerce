@@ -157,6 +157,86 @@ function Admin() {
             </button>
           </div>
         </form>
+        <form className="w-full max-w-md" >
+          <div className="flex flex-wrap -mx-3 mb-4">
+            <div className="w-full px-3 mb-2 md:w-1/2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Product Name
+              </label>
+              <input
+                type="text"
+                placeholder="Product Name"
+                className="w-full p-2 rounded border"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+              />
+            </div>
+            <div className="w-full px-3 mb-2 md:w-1/2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Product Price
+              </label>
+              <input
+                type="number"
+                placeholder="Product Price"
+                className="w-full p-2 rounded border"
+                value={price}
+                onChange={(event) => setPrice(event.target.value)}
+              />
+            </div>
+            <div className="w-full px-3 mb-2 md:w-1/2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Quantity
+              </label>
+              <input
+                type="number"
+                placeholder="Quantity"
+                className="w-full p-2 rounded border"
+                value={quantity}
+                onChange={(event) => setQuantity(event.target.value)}
+              />
+            </div>
+            <div className="w-full px-3 mb-2 md:w-1/2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Category
+              </label>
+              <input
+                type="text"
+                placeholder="Category"
+                className="w-full p-2 rounded border"
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+              />
+            </div>
+            <div className="w-full px-3 mb-2">
+              <label className="block mb-1 text-gray-700 text-sm">
+                Description
+              </label>
+              <textarea
+                placeholder="Description"
+                className="w-full p-2 rounded border"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+              ></textarea>
+            </div>
+            <div className="w-full px-3 mb-2">
+              <label className="block mb-1 text-gray-700 text-sm">Image</label>
+              <input
+                type="file"
+                accept="image/*"
+                className="w-full p-2"
+                onChange={handleFileChange}
+              />
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <button
+              type="button"
+              className="bg-indigo-700 text-white p-2 px-6 rounded hover:bg-indigo-800 text-sm"
+            >
+              Save
+            </button>
+          </div>
+        </form>
       </div>
       <div>
         <h2 className="text-xl font-semibold text-indigo-700 mb-4">
