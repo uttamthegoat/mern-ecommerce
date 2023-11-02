@@ -5,6 +5,7 @@ const Order = require("../models/order");
 exports.getAllOrders = asyncHandler(async (req, res) => {
   const id = req.user._id;
   console.log(req.user);
+  
 
   const allOrders = await Order.find({ user: id }).populate("product");
   if (!allOrders) throw new CustomError(400, false, "Orders were not found!");

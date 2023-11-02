@@ -26,6 +26,8 @@ app.use(cookieParser());
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
 app.use("/api/user",require("./routes/userRoutes"))
+app.use("/api/cart",require("./routes/cartRoutes"))
+
 
 app.get("/", (req, res) => {
   res.send("Welcome to Ecommerce server");
