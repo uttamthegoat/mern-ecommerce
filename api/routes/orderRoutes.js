@@ -18,6 +18,6 @@ router.route("/get-order/:id").get(authMiddleware, getOrder);
 router.route("/place-order").post(authMiddleware, placeOrder);
 
 // delete a specific order of a customer if it is not delivered
-router.route("/cancel-order").delete(authMiddleware, cancelOrder);
+router.route("/cancel-order/:id").delete(authMiddleware, cancelOrder);
 
 module.exports = router;

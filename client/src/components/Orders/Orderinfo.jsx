@@ -7,21 +7,21 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 const OrderInfo = ({ id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [order, SetOrder] = React.useState({
-    orderDate: null,
+  const [order, setOrder] = React.useState({
+    orderDate: "",
     product: {},
     quantity: 0,
     orderState: "",
     address: "",
+    price: 0,
   });
 
   React.useEffect(() => {
-    // get_Order(id, setOrder, navigate, dispatch);
+    get_Order(id, setOrder, navigate, dispatch);
   }, []);
 
   const cancelOrder = () => {
-    const id = order._id;
-    // cancel_Order(id, navigate, dispatch);
+    cancel_Order(id, navigate, dispatch);
   };
 
   return (
@@ -54,7 +54,7 @@ const OrderInfo = ({ id }) => {
             </p>
             <p className="mb-2">
               <span className="font-semibold">Price:</span> ₹
-              {/* {order.product.price.toFixed(2)} */}
+              {order.price.toFixed(2)}
             </p>
             <p className="mb-2">
               <span className="font-semibold">Quantity:</span> {order.quantity}

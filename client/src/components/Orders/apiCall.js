@@ -35,7 +35,6 @@ export const get_Order = (id, setOrder, navigate, dispatch) => {
       if (res.data.success) {
         const { order } = res.data;
         setOrder({ ...order });
-        // console.log(id);
       }
     })
     .catch((error) => {
@@ -51,12 +50,13 @@ export const get_Order = (id, setOrder, navigate, dispatch) => {
 
 export const cancel_Order = (id, navigate, dispatch) => {
   axios
-    .delete("/orders/cancel-order", { id })
+    .delete(`/orders/cancel-order/${id}`)
     .then((res) => {
       if (res.data.success) {
         const message = res.data.message,
           type = "success";
         dispatch(showAlert({ message, type }));
+        navigate("/orders")
       }
     })
     .catch((error) => {
@@ -75,6 +75,7 @@ export const place_Order = (orderData, navigate, dispatch) => {
     .post("/orders/place-order", orderData)
     .then((res) => {
       if (res.data.success) {
+        console.log(orderData);
         const message = res.data.message,
           type = "success";
         dispatch(showAlert({ message, type }));

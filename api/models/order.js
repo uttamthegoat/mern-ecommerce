@@ -8,7 +8,7 @@ const orderSchema = new mongoose.Schema(
       ref: "User",
     },
     orderDate: {
-      type: Date,
+      type: String,
       require: true,
     },
     product: {
@@ -28,6 +28,10 @@ const orderSchema = new mongoose.Schema(
     },
     address: {
       type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
       required: true,
     },
   },

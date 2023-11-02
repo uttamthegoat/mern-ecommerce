@@ -47,13 +47,13 @@ export const fetchProductData = (setProducts, navigate, dispatch) => {
 };
 
 // fetch a particular product in admin page
-export const a3 = (id, navigate, dispatch) => {
+export const fetchProduct = (id, setProductItem, navigate, dispatch) => {
   axios
     .get(`/products/fetch-product/${id}`)
     .then((res) => {
       if (res.data.success) {
-        dispatch();
-        navigate();
+        const { product } = res.data;
+        setProductItem({ ...product });
       }
     })
     .catch((error) => {

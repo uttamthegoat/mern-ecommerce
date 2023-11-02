@@ -3,33 +3,53 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { place_Order } from "../Orders/apiCall";
+import { fetchProduct } from "../Admin/apiCall";
 
-const ProductPage = () => {
+const ProductPage = ({ id }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [orderData, setOrderData] = useState({
-    orderDate: "null",
-    product: null, // remaining
-    quantity: 0,
+  const [productItem, setProductItem] = useState({
+    name: "",
+    description: "",
+    category: "",
+    price: 0,
+    productInStock: 0,
+    productImage: "",
   });
-  const [amount, setAmount] = useState(1);
+  const [orderData, setOrderData] = useState({
+    orderDate: "",
+    product: "",
+    quantity: 1,
+    price: 0,
+  });
+
+  React.useEffect(() => {
+    fetchProduct(id, setProductItem, navigate, dispatch);
+    setOrderData({ ...orderData, product: id });
+  }, []);
 
   const decreaseAmount = () => {
-    if (amount > 1) setAmount((prev) => prev - 1);
+    if (orderData.quantity > 1) {
+      setOrderData({
+        ...orderData,
+        quantity: orderData.quantity - 1,
+        price: (orderData.quantity - 1) * productItem.price,
+      });
+    }
   };
-
   const increaseAmount = () => {
-    if (amount < 10) setAmount((prev) => prev + 1);
+    if (orderData.quantity < productItem.productInStock) {
+      setOrderData({
+        ...orderData,
+        quantity: orderData.quantity + 1,
+        price: (orderData.quantity + 1) * productItem.price,
+      });
+    }
   };
 
   const placeOrder = () => {
-    const currentDate = new Date();
-    const formattedDate = `${currentDate
-      .toLocaleDateString()
-      .replace(/\//g, "-")}`;
-    setOrderData({ ...orderData, orderDate: formattedDate, quantity: amount });
-    // place_Order(orderData, navigate, dispatch)
+    place_Order(orderData, navigate, dispatch);
   };
 
   return (
@@ -37,18 +57,21 @@ const ProductPage = () => {
       <div className="lg:w-2/4 w-full max-w-screen-lg mx-auto my-5 md:my-0">
         <div className="w-full md:w-9/12 mx-auto">
           <LazyLoadImage
-            src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.VKpQD9xA8OE6E2lTlSf3igHaFT%26pid%3DApi&f=1&ipt=8d24b012d2a173984999b4b09b88eaabdb7aecefe79b8d5af25bb4e1265c63d1&ipo=images"
-            alt="productImage"
+            src={productItem.productImage}
             className="w-full h-auto rounded-xl"
           />
         </div>
       </div>
 
       <div className="lg:w-2/4 w-full max-w-screen-lg mx-auto flex flex-col gap-4 items-center md:my-0">
-        <h1 className="text-3xl font-bold text-center">laptop</h1>
-        <h6 className="text-2xl font-semibold text-center">₹ 59999.00</h6>
+        <h1 className="text-3xl font-bold text-center">{productItem.name}</h1>
+        <h6 className="text-2xl font-semibold text-center">
+          Price: <span className="text-red-400">₹{productItem.price}</span>
+        </h6>
         <div>
-          <p className="text-green-600">{10} in stock</p>
+          <p className="text-green-600 text-xl">
+            {productItem.productInStock} in stock
+          </p>
         </div>
         <div className="flex flex-row items-center justify-center gap-12">
           <button
@@ -57,7 +80,9 @@ const ProductPage = () => {
           >
             -
           </button>
-          <span className="py-4 px-6 rounded-lg text-3xl">{amount}</span>
+          <span className="py-4 px-6 rounded-lg text-3xl">
+            {orderData.quantity}
+          </span>
           <button
             className="bg-gray-200 py-2 pb-3 px-5 rounded-lg text-violet-800 text-3xl font-bold"
             onClick={increaseAmount}
@@ -71,24 +96,23 @@ const ProductPage = () => {
           </button>
           <button
             onClick={placeOrder}
+            disabled={!productItem.productInStock}
             className="bg-violet-800 text-white font-semibold py-3 w-28 rounded-xl"
           >
             Buy Now
           </button>
         </div>
         <div>
-          <p className="font-semibold text-gray-600">
+          <p className="font-semibold text-black">
             Category:{" "}
-            <span className="font-semibold text-black">{"Electronics"}</span>
+            <span className="font-semibold text-gray-600">
+              {productItem.category}
+            </span>
           </p>
         </div>
         <p className="text-gray-700 text-center pb-4 lg:pb-4">
-          Con un'ammortizzazione incredibile per sostenerti in tutti i tuoi
-          chilometri, Invincible 3 offre un livello di comfort elevatissimo
-          sotto il piede per aiutarti a dare il massimo oggi, domani e oltre.
-          Questo modello incredibilmente elastico e sostenitivo, è pensato per
-          dare il massimo lungo il tuo percorso preferito e fare ritorno a casa
-          carico di energia, in attesa della prossima corsa.
+          <span className="font-semibold">Description: </span>
+          {productItem.description}
         </p>
       </div>
     </div>

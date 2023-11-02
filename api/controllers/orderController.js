@@ -1,3 +1,4 @@
+const { ObjectId } = require("mongoose").Types;
 const CustomError = require("../errors/CustomError");
 const asyncHandler = require("../middleware/asyncHandler");
 const Order = require("../models/order");
@@ -9,7 +10,9 @@ exports.getAllOrders = asyncHandler(async (req, res) => {
   const allOrders = await Order.find({ user: id }).populate("product");
   if (!allOrders) throw new CustomError(400, false, "Orders were not found!");
 
-  res.status(200).json({ success: true, orders: allOrders });
+  const reversedOrders = allOrders.reverse();
+
+  res.status(200).json({ success: true, orders: reversedOrders });
 });
 
 exports.getOrder = asyncHandler(async (req, res) => {
@@ -22,26 +25,33 @@ exports.getOrder = asyncHandler(async (req, res) => {
 });
 
 exports.placeOrder = asyncHandler(async (req, res) => {
-  const { orderDate, product, quantity } = req.body;
+  const { orderDate, product, quantity, price } = req.body;
   const id = req.user._id;
   const { address } = req.user;
+  if (address === "")
+    throw new CustomError(400, false, "Update your address to order anything!");
 
-  const newOrder = await Order.create({
-    user: id,
-    orderDate,
-    product,
-    quantity,
-    address,
-  });
-  if (!newOrder) throw new CustomError(400, false, "Order not placed!");
+  const productObjectId = new ObjectId(product);
 
   // reducing the respective product in stock
   const orderedProduct = await Product.findById(product);
-  if (!orderedProduct) throw new CustomError(400, false, "Product not found!");
+  if (!orderedProduct)
+    throw new CustomError(400, false, "Product was not found!");
 
   orderedProduct.productInStock = orderedProduct.productInStock - quantity;
-  const updatedProduct = await product.save();
-  if (!updatedProduct) throw new CustomError(400, false, "Product not found!");
+  const updatedProduct = await orderedProduct.save();
+  if (!updatedProduct)
+    throw new CustomError(400, false, "Product not updated!");
+
+  const newOrder = await Order.create({
+    user: id,
+    orderDate: new Date().toLocaleDateString(),
+    product: productObjectId,
+    quantity,
+    address,
+    price,
+  });
+  if (!newOrder) throw new CustomError(400, false, "Order not placed!");
 
   res.status(200).json({
     success: true,
@@ -51,7 +61,7 @@ exports.placeOrder = asyncHandler(async (req, res) => {
 });
 
 exports.cancelOrder = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   const order = await Order.findById(id);
   if (!order) throw new CustomError(400, false, "Order not found!");
@@ -62,7 +72,8 @@ exports.cancelOrder = asyncHandler(async (req, res) => {
   orderedProduct.productInStock += order.quantity;
 
   await orderedProduct.save();
-  await order.remove();
+  const deletedOrder = await Order.findByIdAndRemove(id);
+  if (!deletedOrder) throw new CustomError(400, false, "Order not found.");
 
   res
     .status(200)

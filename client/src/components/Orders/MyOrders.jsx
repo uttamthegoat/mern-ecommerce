@@ -9,30 +9,11 @@ const MyOrders = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [orders, setOrders] = React.useState([
-    {
-      _id: 1,
-      orderDate: "22/11/2023",
-      product: {
-        _id: 122,
-        productImage:
-          "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRmKtgm0a1ntX3diNOSIGZyf5tHZMTGfUV5Euq4_mT-as4VyyB6E2YZCN6b_sXjGjYfj2DXgKWPjf9EWIwvHvp2RG-Q1U8wRdZthhtpI7hwIQsupAyHdKHZ&usqp=CAE",
-      },
-    },
-    {
-      _id: 2,
-      orderDate: "23/01/2023",
-      product: {
-        _id: 113,
-        productImage:
-          "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRmKtgm0a1ntX3diNOSIGZyf5tHZMTGfUV5Euq4_mT-as4VyyB6E2YZCN6b_sXjGjYfj2DXgKWPjf9EWIwvHvp2RG-Q1U8wRdZthhtpI7hwIQsupAyHdKHZ&usqp=CAE",
-      },
-    },
-  ]);
-  const [totalOrders, setTotalOrders] = React.useState(9);
+  const [orders, setOrders] = React.useState([]);
+  const [totalOrders, setTotalOrders] = React.useState(0);
 
   React.useEffect(() => {
-    // get_All_Orders(setOrders, setTotalOrders, navigate, dispatch);
+    get_All_Orders(setOrders, setTotalOrders, navigate, dispatch);
   }, []);
 
   return (
@@ -54,12 +35,12 @@ const MyOrders = () => {
             return (
               <div
                 key={order._id}
-                className="order-object w-full md:w-9/12 mx-auto bg-gray-100 shadow-lg"
+                className="order-object w-full md:w-9/12 mx-auto bg-gray-200 shadow-lg"
               >
                 <div className="flex justify-around py-3">
                   <p className="uppercase text-gray-500 font-semibold text-center">
                     Order Id.:{" "}
-                    <span className="text-black font-normal">{order._id}</span>
+                    <span className="text-black font-normal">{order._id.slice(0, 7)}</span>
                   </p>
                   <p className="uppercase text-gray-500 font-semibold text-center">
                     Order date:{" "}
