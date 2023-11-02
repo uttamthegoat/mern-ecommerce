@@ -1,12 +1,29 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchProductData, createProduct,updateProduct,  } from "./apiCall";
+import { fetchProductData, createProduct, updateProduct } from "./apiCall";
 
 function Admin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([
+    {
+      _id: 2,
+      name: "Asus",
+      productInStock: 2,
+      price: 9999,
+      category: "Electronics",
+      description: "A laptop",
+    },
+    {
+      _id: 3,
+      name: "Asus",
+      productInStock: 2,
+      price: 9999,
+      category: "Electronics",
+      description: "A laptop",
+    },
+  ]);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -15,7 +32,6 @@ function Admin() {
   const [description, setDescription] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
 
-  
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
@@ -29,7 +45,7 @@ function Admin() {
     formData.append("productInStock", quantity);
     formData.append("category", category);
     formData.append("description", description);
-    formData.append("productImage", image);
+    formData.append("file", selectedImage);
     createProduct(formData, navigate, dispatch);
   };
 
@@ -72,7 +88,7 @@ function Admin() {
                 placeholder="Product Name"
                 className="w-full p-2 rounded border"
                 value={name}
-                onChange={(event) => setName(event.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="w-full px-3 mb-2 md:w-1/2">
@@ -84,7 +100,7 @@ function Admin() {
                 placeholder="Product Price"
                 className="w-full p-2 rounded border"
                 value={price}
-                onChange={(event) => setPrice(event.target.value)}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
             <div className="w-full px-3 mb-2 md:w-1/2">
@@ -96,7 +112,7 @@ function Admin() {
                 placeholder="Quantity"
                 className="w-full p-2 rounded border"
                 value={quantity}
-                onChange={(event) => setQuantity(event.target.value)}
+                onChange={(e) => setQuantity(e.target.value)}
               />
             </div>
             <div className="w-full px-3 mb-2 md:w-1/2">
@@ -108,7 +124,7 @@ function Admin() {
                 placeholder="Category"
                 className="w-full p-2 rounded border"
                 value={category}
-                onChange={(event) => setCategory(event.target.value)}
+                onChange={(e) => setCategory(e.target.value)}
               />
             </div>
             <div className="w-full px-3 mb-2">
@@ -119,7 +135,7 @@ function Admin() {
                 placeholder="Description"
                 className="w-full p-2 rounded border"
                 value={description}
-                onChange={(event) => setDescription(event.target.value)}
+                onChange={(e) => setDescription(e.target.value)}
               ></textarea>
             </div>
             <div className="w-full px-3 mb-2">
@@ -134,7 +150,7 @@ function Admin() {
           </div>
           <div className="flex justify-end">
             <button
-              type="button"
+              type="submit"
               className="bg-indigo-700 text-white p-2 px-6 rounded hover:bg-indigo-800 text-sm"
             >
               Create
@@ -159,36 +175,38 @@ function Admin() {
             </tr>
           </thead>
           <tbody>
-          {products.map((product) => (
-            <tr key={product._id}>
-              <td
-                className="p-3 hover:text-indigo-700 truncate w-32 cursor-pointer"
-                title="product1"
-              >
-                {product.name}
-              </td>
-              <td className="p-3">${product.price}</td>
-              <td className="p-3">{product.quantity}</td>
-              <td className="p-3">{product.category}</td>
-              <td className="p-3">{product.description}</td>
-              <td className="p-3">
-                <button
-                  type="button"
-                  className="bg-indigo-700 text-white p-2 rounded hover:bg-indigo-800 text-sm"
-                  onClick={() => handleUpdateProduct(product.id)}
-                >
-                  Edit
-                </button>
-                <button
-                  type="button"
-                  className="bg-red-700 text-white p-2 rounded hover:bg-red-800 ml-2 text-sm"
-                  onClick={() => handleDeleteProduct(product.id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-            ))}
+            {/* {products.map((product) => {
+              return (
+                <tr key={product._id}>
+                  <td
+                    className="p-3 hover:text-indigo-700 truncate w-32 cursor-pointer"
+                    title="product1"
+                  >
+                    {product.name}
+                  </td>
+                  <td className="p-3">${product.price}</td>
+                  <td className="p-3">{product.productInStock}</td>
+                  <td className="p-3">{product.category}</td>
+                  <td className="p-3">{product.description}</td>
+                  <td className="p-3">
+                    <button
+                      type="button"
+                      className="bg-indigo-700 text-white p-2 rounded hover:bg-indigo-800 text-sm"
+                      onClick={() => handleUpdateProduct(product._id)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      type="button"
+                      className="bg-red-700 text-white p-2 rounded hover:bg-red-800 ml-2 text-sm"
+                      onClick={() => handleDeleteProduct(product._id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })} */}
           </tbody>
         </table>
       </div>

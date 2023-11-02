@@ -9,9 +9,9 @@ export const createProduct = (formData, navigate, dispatch) => {
         .post("/products/create-product", formData)
         .then((res) => {
             if (res.data.success) {
-                dispatch(showAlert({ message: "Product created successfully", type: "success" }));
-                clearForm();
-                navigate("/products");
+                const message = res.data.message,
+                type = "success";
+                dispatch(showAlert({ message, type }));
             }
         })
         .catch((error) => {
@@ -30,7 +30,7 @@ export const createProduct = (formData, navigate, dispatch) => {
 //get all the product details in the admin page
 export const fetchProductData = (setProducts, navigate, dispatch) => {
     axios
-        .get("/products/all-products")
+        .get("/products/all-products-a")
         .then((res) => {
             if (res.data.success) {
                 const products = res.data.products;
@@ -51,9 +51,9 @@ export const fetchProductData = (setProducts, navigate, dispatch) => {
 
 
 // fetch a particular products in admin page
-export const a3 = (loginDet, navigate, dispatch) => {
+export const a3 = (id, navigate, dispatch) => {
     axios
-        .get("/products/fetch-product", fetchProduct)
+        .get(`/products/fetch-product/${id}`)
         .then((res) => {
             if (res.data.success) {
 

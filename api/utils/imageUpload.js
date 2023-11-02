@@ -16,13 +16,13 @@ const imageUpload = async (file) => {
   const fileStr = webpBuffer.toString("base64");
 
   let transformationOptions = {
-    transformation: [{ width: 300, height: 300, crop: "crop" }],
+    // transformation: [{ width: 300, height: 300, crop: "crop" }],
     folder: "Mern-ecommerce/Products",
   };
 
   const result = await cloudinary.uploader.upload(
-    `data:image/jpeg;base64,${fileStr}`
-    // transformationOptions
+    `data:image/jpeg;base64,${fileStr}`,
+    transformationOptions
   );
   if (!result) throw new CustomError(400, false, "Image not uploaded!");
   const url = result.secure_url;

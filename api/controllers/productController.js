@@ -31,11 +31,11 @@ exports.createProduct = asyncHandler(async (req, res) => {
   });
 
   const newProduct = await product.save();
-  if (!newProduct) throw new CustomError(400, false, "Product was not saved!");
+  if (!product) throw new CustomError(400, false, "Product was not saved!");
 
   res.status(201).json({
     success: true,
-    message: "Product successfully added!",
+    message: "Product created successfully!",
     product: newProduct,
   });
 });
@@ -67,7 +67,6 @@ exports.updateProduct = asyncHandler(async (req, res) => {
   const updatedData = req.body;
   const { id } = req.params;
 
-
   const updatedProduct = await Product.findByIdAndUpdate(
     id,
     { $set: updatedData },
@@ -93,4 +92,12 @@ exports.deleteProduct = asyncHandler(async (req, res) => {
     success: true,
     message: "Product has been successfully deleted!",
   });
+});
+
+// Get all products for admin
+exports.getProductsAdmin = asyncHandler(async (req, res) => {
+  const products = await Product.find();
+  if (!products) throw new CustomError(400, false, "Products not found!");
+
+  res.status(200).json({ success: true, products });
 });
