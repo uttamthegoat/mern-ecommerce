@@ -10,7 +10,7 @@ exports.search = asyncHandler(async (req, res) => {
       { description: { $regex: query, $options: "i" } }, // Case-insensitive search for description
     ],
   });
-  if (!products) throw new CustomError(400, false, "products were not found!");
+  if (!products) throw new CustomError(400, false, "No products were found!");
 
   res.status(200).json({ success: true, products });
 });

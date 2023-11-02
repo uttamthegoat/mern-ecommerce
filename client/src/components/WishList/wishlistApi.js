@@ -1,7 +1,7 @@
 import axios from "axios";
 import { showAlert } from "../../features/alert/alertSlice";
 
-const apiUrl = "http://localhost:5173/api/wishlist"; 
+const apiUrl = "http://localhost:5173/api/wishlist";
 
 export const getWishlist = async (dispatch) => {
   try {

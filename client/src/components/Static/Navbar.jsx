@@ -7,17 +7,27 @@ import { showSidebar } from "../../features/sidebar/sidebarSlice";
 import { get_User_Details } from "../Authentication/apiCall";
 import { useSelector, useDispatch } from "react-redux";
 import { selectUser } from "../../features/user/userSlice";
+import { formSubmit } from "../../features/search/searchSlice";
 
 const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
-  const openSidebar = () => dispatch(showSidebar());
-  const searchForm = (e) => e.preventDefault();
+  const [searchQuery, setSearchQuery] = React.useState("");
 
   React.useEffect(() => {
     get_User_Details(navigate, dispatch);
+    setSearchQuery(sessionStorage.getItem("searchQuery"));
   }, []);
+
+  const searchForm = (e) => {
+    e.preventDefault();
+    sessionStorage.setItem("searchQuery", searchQuery);
+    navigate("/search");
+    dispatch(formSubmit());
+  };
+
+  const openSidebar = () => dispatch(showSidebar());
 
   return (
     <nav className={`${styles.Navbar_Glass} shadow-xl w-full top-0 left-0`}>
@@ -66,7 +76,8 @@ const Navbar = () => {
                   name="search"
                   id="search-box"
                   placeholder="Search..."
-                  value=""
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="border-2 border-gray-300 outline-2 outline-gray-500 px-3 py-1 w-11/12 md:w-[400px] rounded-sm md:m-0 m-auto block"
                   title="Search"
                 />
