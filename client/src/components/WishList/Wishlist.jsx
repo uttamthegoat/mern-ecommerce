@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
-const WishList = () => {
-  const [wishlistProducts, setWishlistProducts] = useState([
-    {
-      id: 1,
-      name: " Product 1",
-      image:
-        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.VYj5yD8jSmfB2bk9s5lihAHaLG%26pid%3DApi&f=1&ipt=a82fe313c3fc7f47be0b4426f47705583896b09510e703da0e9eb7c3f94d7334&ipo=images", // Replace with valid image URL
-    },
-  ]);
+import { getWishlist, removeFromWishlist } from "./wishlistApi"; // Adjust the import path
 
-  const removeFromWishlist = () => {};
+const WishList = () => {
+  const [wishlistProducts, setWishlistProducts] = useState([]);
+
+  useEffect(() => {
+    getWishlist().then((wishlistData) => {
+      setWishlistProducts(wishlistData);
+    });
+  }, []);
+
+  const handleRemoveFromWishlist = (productId) => {
+    removeFromWishlist(productId).then((success) => {
+      if (success) {
+        setWishlistProducts((prevProducts) =>
+          prevProducts.filter((product) => product.id !== productId)
+        );
+      }
+    });
+  };
 
   return (
     <div className="container my-6 px-4 mx-auto md:my-10">
@@ -39,7 +48,7 @@ const WishList = () => {
             <div className="flex gap-4 justify-center mt-2">
               <button
                 className="bg-purple-500 text-white p-2 rounded-md"
-                onClick={removeFromWishlist}
+                onClick={() => handleRemoveFromWishlist(product.id)}
               >
                 Remove
               </button>

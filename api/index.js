@@ -28,7 +28,7 @@ app.use("/api/products", require("./routes/productRoutes"));
 app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/search", require("./routes/searchRoutes"));
 app.use("/api/orders", require("./routes/orderRoutes"));
-
+app.use("/api/wishlist", require("./routes/wishlistRoutes"));
 app.get("/", (req, res) => {
   res.send("Welcome to BuyBox server!");
 });
