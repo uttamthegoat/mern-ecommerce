@@ -8,6 +8,7 @@ const {
   updateProduct,
   deleteProduct,
   fetchProduct,
+  getProductsAdmin,
 } = require("../controllers/productController");
 const verifyAdmin = require("../middleware/verifyAdmin");
 const upload = multer();
@@ -21,7 +22,9 @@ router
 router.route("/all-products").get(authMiddleware, getProducts);
 
 //get all products for admin:  https://localhost:5002/api/products/all-products-a
-router.route("/all-products-a").get(authMiddleware, verifyAdmin, getProducts);
+router
+  .route("/all-products-a")
+  .get(authMiddleware, verifyAdmin, getProductsAdmin);
 
 // fetch a particular product
 router.route("/fetch-product/:id").get(authMiddleware, fetchProduct);
@@ -29,11 +32,11 @@ router.route("/fetch-product/:id").get(authMiddleware, fetchProduct);
 // edit a product
 router
   .route("/edit-product/:id")
-  .put(authMiddleware, verifyAdmin, updateProduct);
+  .put(authMiddleware, verifyAdmin, upload.single("file"), updateProduct);
 
 // delete a product
 router
-  .route("/delete-product")
+  .route("/delete-product/:id")
   .delete(authMiddleware, verifyAdmin, deleteProduct);
 
 module.exports = router;

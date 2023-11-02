@@ -64,13 +64,20 @@ exports.getProducts = asyncHandler(async (req, res) => {
 
 // Update a product
 exports.updateProduct = asyncHandler(async (req, res) => {
-  const updatedData = req.body;
+  const updateFields = req.body;
   const { id } = req.params;
+
+  if (req.file) {
+    let productImage = await uploadImage(req.file);
+    if (!productImage)
+      throw new CustomError(400, false, "Product image not found!");
+    updateFields.productImage = productImage;
+  }
 
   const updatedProduct = await Product.findByIdAndUpdate(
     id,
-    { $set: updatedData },
-    { new: true } // To return the updated document
+    { $set: updateFields },
+    { new: true }
   );
 
   res.status(200).json({
@@ -82,7 +89,7 @@ exports.updateProduct = asyncHandler(async (req, res) => {
 
 // Delete a product
 exports.deleteProduct = asyncHandler(async (req, res) => {
-  const { id } = req.body;
+  const { id } = req.params;
 
   const deletedProduct = await Product.findByIdAndDelete(id);
   if (!deletedProduct)
