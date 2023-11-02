@@ -7,7 +7,6 @@ function Admin() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
-  const [selectedimage, setSelectedimage] = useState(null);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -19,7 +18,7 @@ function Admin() {
   
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setSelectedimage(file);
+    setSelectedImage(file);
   };
 
   const handleCreateProduct = (event) => {
@@ -27,10 +26,10 @@ function Admin() {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("price", price);
-    formData.append("quantity", quantity);
+    formData.append("productInStock", quantity);
     formData.append("category", category);
     formData.append("description", description);
-    formData.append("image", image);
+    formData.append("productImage", image);
     createProduct(formData, navigate, dispatch);
   };
 
@@ -38,10 +37,10 @@ function Admin() {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("price", price);
-    formData.append("quantity", quantity);
+    formData.append("productInStock", quantity);
     formData.append("category", category);
     formData.append("description", description);
-    formData.append("image", selectedImage);
+    formData.append("productImage", selectedImage);
 
     // Call the updateProduct function with the product ID
     updateProduct(productId, formData, navigate, dispatch);
@@ -160,40 +159,36 @@ function Admin() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+          {products.map((product) => (
+            <tr key={product._id}>
               <td
                 className="p-3 hover:text-indigo-700 truncate w-32 cursor-pointer"
                 title="product1"
               >
-                {products.name}
+                {product.name}
               </td>
-              <td className="p-3">${products.price}</td>
-              <td className="p-3">{products.quantity}</td>
-              <td className="p-3">{products.category}</td>
-              <td className="p-3">{products.description}</td>
-              <td className="p-3">
-                <img
-                  src={products.imageUrl}
-                  alt={products.name}
-                  className="h-12 w-12 object-cover"
-                />
-              </td>
+              <td className="p-3">${product.price}</td>
+              <td className="p-3">{product.quantity}</td>
+              <td className="p-3">{product.category}</td>
+              <td className="p-3">{product.description}</td>
               <td className="p-3">
                 <button
                   type="button"
                   className="bg-indigo-700 text-white p-2 rounded hover:bg-indigo-800 text-sm"
-                  onClick={() => handleUpdateProduct(products.id)}
+                  onClick={() => handleUpdateProduct(product.id)}
                 >
                   Edit
                 </button>
                 <button
                   type="button"
                   className="bg-red-700 text-white p-2 rounded hover:bg-red-800 ml-2 text-sm"
+                  onClick={() => handleDeleteProduct(product.id)}
                 >
                   Delete
                 </button>
               </td>
             </tr>
+            ))}
           </tbody>
         </table>
       </div>
