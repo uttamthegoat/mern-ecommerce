@@ -1,36 +1,43 @@
 import axios from "axios";
 import { showAlert } from "../../features/alert/alertSlice";
 
-const apiUrl = "http://localhost:5173/api/wishlist";
 
-export const getWishlist = async (dispatch) => {
+export const getWishlist = async (navigate,dispatch) => {
   try {
-    const response = await axios.get(apiUrl);
-    if (response.status === 200) {
-      return response.data.data;
+    const response = await axios.get("wishlist/get");
+    if (response.data.success) {
+      console.log.response.data;
     }
     return [];
   } catch (error) {
-    console.error("Error fetching wishlist:", error);
+    
     const message = error.response.data.message;
     const type = "error";
     dispatch(showAlert({ message, type }));
-    return [];
+    if (error.response.data.status === "logout") {
+      localStorage.removeItem("authenticate");
+      navigate("/auth");
+    }
+    ;
   }
 };
 
-export const removeFromWishlist = async (dispatch, productId) => {
+export const removeFromWishlist = async (navigate,dispatch, productId) => {
   try {
-    const response = await axios.delete(`${apiUrl}/remove`, { data: { productId } });
+    const response = await axios.delete(`/wishlist/remove`,  { productId } );
     if (response.status === 200) {
       return true;
     }
-    return false;
+    ;
   } catch (error) {
-    console.error("Error removing item from wishlist:", error);
+    
     const message = error.response.data.message;
     const type = "error";
     dispatch(showAlert({ message, type }));
-    return false;
+    if (error.response.data.status === "logout") {
+      localStorage.removeItem("authenticate");
+      navigate("/auth");
+    }
+    ;
   }
 };
