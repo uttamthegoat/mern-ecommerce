@@ -1,16 +1,14 @@
 import axios from "axios";
 import { showAlert } from "../../features/alert/alertSlice";
 
-
-export const getWishlist = async (navigate,dispatch) => {
+export const getWishlist = async (dispatch) => {
   try {
-    const response = await axios.get("wishlist/get");
+    const response = await axios.get("/wishlist/get");
     if (response.data.success) {
-      console.log.response.data;
+      console.log(response.data)
     }
     return [];
   } catch (error) {
-    
     const message = error.response.data.message;
     const type = "error";
     dispatch(showAlert({ message, type }));
@@ -18,19 +16,18 @@ export const getWishlist = async (navigate,dispatch) => {
       localStorage.removeItem("authenticate");
       navigate("/auth");
     }
-    ;
+    return [];
   }
 };
 
-export const removeFromWishlist = async (navigate,dispatch, productId) => {
+export const addToWishlist = async (dispatch,navigate, productId) => {
   try {
-    const response = await axios.delete(`/wishlist/remove`,  { productId } );
-    if (response.status === 200) {
-      return true;
+    const response = await axios.post("/wishlist/add", { productId });
+    if (response.data.success) {
+      console.log(response.data)
     }
-    ;
+   
   } catch (error) {
-    
     const message = error.response.data.message;
     const type = "error";
     dispatch(showAlert({ message, type }));
@@ -38,6 +35,25 @@ export const removeFromWishlist = async (navigate,dispatch, productId) => {
       localStorage.removeItem("authenticate");
       navigate("/auth");
     }
-    ;
+   
+  }
+};
+
+export const removeFromWishlist = async (dispatch,navigate, productId) => {
+  try {
+    const response = await axios.delete(`/wishlist/remove`,  { productId } );
+    if (response.data.success) {
+      console.log(response.data)
+    }
+   
+  } catch (error) {
+    const message = error.response.data.message;
+    const type = "error";
+    dispatch(showAlert({ message, type }));
+    if (error.response.data.status === "logout") {
+      localStorage.removeItem("authenticate");
+      navigate("/auth");
+    }
+
   }
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+const handleAddWishlist = () => {};
 
 const SearchResultItem = ({ product }) => {
   return (
@@ -22,12 +23,21 @@ const SearchResultItem = ({ product }) => {
         <p className="text-2xl sm:text-lg text-gray-500 mb-6">
           Items in Stock: {product.productInStock}
         </p>
-        <Link
-          to={`/product-page/${product._id}`}
-          className="text-white bg-purple-500 border border-purple-600 py-2 px-4 rounded-md text-sm hover:bg-purple-600 hover:border-purple-700 mt-6 "
-        >
-          View Product
-        </Link>
+        <div className="flex justify-around">
+          <Link
+            to={`/product-page/${product._id}`}
+            className="text-white bg-purple-500 border border-purple-600 py-2 px-4 rounded-md text-sm hover:bg-purple-600 hover:border-purple-700 mt-6 "
+          >
+            View Product
+          </Link>
+          <button
+            className="text-white bg-purple-500 border border-purple-600 py-2 px-4 rounded-md text-sm hover:bg-purple-600 hover:border-purple-700 mt-6"
+            onClick={() => handleAddWishlist(product._id)}
+          >
+            Add to Wishlist
+          </button>
+        </div>
+
       </div>
     </div>
   );

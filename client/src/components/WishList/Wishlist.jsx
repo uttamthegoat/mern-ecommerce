@@ -3,6 +3,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-solid-svg-icons";
 //import { getWishlist, removeFromWishlist } from "./wishlistApi"; 
+import {addToWishlist} from '../WishList/wishlistApi';
 
 const WishList = () => {
   const [wishlistProducts, setWishlistProducts] = useState([]);

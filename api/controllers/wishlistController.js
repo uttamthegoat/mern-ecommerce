@@ -2,6 +2,7 @@ const CustomError = require("../errors/CustomError");
 const asyncHandler = require("../middleware/asyncHandler");
 const Wishlist = require("../models/Wishlist");
 const Product = require("../models/Product");
+import {} from '../WishList/wishlistApi';
 
 // Get user's wishlist
 exports.getWishlist = asyncHandler(async (req, res) => {
