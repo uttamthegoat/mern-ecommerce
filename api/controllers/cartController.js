@@ -3,7 +3,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 const Cart = require('../models/cart');
 
 exports.getAllProductsInUserCart = asyncHandler(async(req,res) => {
-    const userCart =await Cart.findOne({ user: userId }).populate('items.product');
+    const userCart =await Cart.findOne({ user: req.params.id }).populate('items.product');
     if (!userCart)
     throw new CustomError(400,false,"users cart not found!")
 
@@ -37,7 +37,7 @@ exports.addToCart = asyncHandler(async (req, res) => {
 
 exports.deleteProductFromCart = asyncHandler(async (req, res) => {
   const userId = req.user._id;
-  const productId = req.params.productId; // Assuming you pass the product ID in the route parameter
+  const productId = req.params.id; // Assuming you pass the product ID in the route parameter
 
   const userCart = await Cart.findOne({ user: userId });
   if (!userCart) {
