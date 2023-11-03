@@ -3,6 +3,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 const CustomError = require("../errors/CustomError");
 const generateToken = require("../utils/generateToken");
 const generateMail = require("../utils/generateMail");
+const Wishlist = require("../models/wishlist");
 let globalOTP;
 
 // Register User
@@ -26,9 +27,14 @@ exports.registerUser = asyncHandler(async (req, res) => {
     name,
     email,
     password,
-    gender:gender.toLowerCase(),
+    gender: gender.toLowerCase(),
     phoneNumber,
     isAdmin: isFirstUser,
+  });
+
+  const userWishlist = await Wishlist.create({
+    user: user._id,
+    items: [],
   });
 
   if (user) {

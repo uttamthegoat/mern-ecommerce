@@ -1,7 +1,7 @@
 const CustomError = require("../errors/CustomError");
 const asyncHandler = require("../middleware/asyncHandler");
-const Wishlist = require("../models/Wishlist");
-const Product = require("../models/Product");
+const Wishlist = require("../models/wishlist");
+const Product = require("../models/products");
 
 // Get user's wishlist
 exports.getWishlist = asyncHandler(async (req, res) => {
@@ -12,7 +12,7 @@ exports.getWishlist = asyncHandler(async (req, res) => {
     throw new CustomError(404, false, "Wishlist not found");
   }
 
-  res.status(200).json({ success: true, data: wishlist });
+  res.status(200).json({ success: true, items: wishlist });
 });
 
 // Add a product to the wishlist
@@ -50,7 +50,7 @@ exports.addToWishlist = asyncHandler(async (req, res) => {
 // Remove a product from the wishlist
 exports.removeFromWishlist = asyncHandler(async (req, res) => {
   const userId = req.user._id;
-  const { productId } = req.body;
+  const { productId } = req.params;
 
   if (!productId) {
     throw new CustomError(400, false, "Product ID is required");
@@ -63,8 +63,12 @@ exports.removeFromWishlist = asyncHandler(async (req, res) => {
     throw new CustomError(400, false, "Product not found in the wishlist");
   }
 
-  wishlist.items = wishlist.items.filter((item) => item.toString() !== productId.toString());
+  wishlist.items = wishlist.items.filter(
+    (item) => item.toString() !== productId.toString()
+  );
   await wishlist.save();
 
-  res.status(200).json({ success: true, message: "Product removed from wishlist" });
+  res
+    .status(200)
+    .json({ success: true, message: "Product removed from wishlist" });
 });

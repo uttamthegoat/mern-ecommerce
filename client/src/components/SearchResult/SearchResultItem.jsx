@@ -1,11 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import {} from '../WishList/wishlistApi';
+import { addToWishlist } from "../WishList/wishlistApi";
+import { useDispatch } from "react-redux";
 
 const SearchResultItem = ({ product }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const handleAddWishlist = (productId) => {
-    console.log(productId);
+    addToWishlist(dispatch, navigate, productId);
   };
   return (
     <div className="flex flex-col md:gap-y-4 p-6 bg-gray-200 shadow-lg mx-auto w-11/12 md:w-9/12">
