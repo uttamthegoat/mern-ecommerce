@@ -17,7 +17,7 @@ const Navbar = () => {
 
   React.useEffect(() => {
     get_User_Details(navigate, dispatch);
-    setSearchQuery(sessionStorage.getItem("searchQuery"));
+    // setSearchQuery(sessionStorage.getItem("searchQuery"));
   }, []);
 
   const searchForm = (e) => {

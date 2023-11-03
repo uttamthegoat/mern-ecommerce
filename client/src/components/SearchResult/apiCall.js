@@ -21,3 +21,22 @@ export const search = (setSearchProducts, navigate, dispatch) => {
       }
     });
 };
+
+export const filterProducts = (navigate, dispatch) => {
+  const searchQuery = sessionStorage.getItem("searchQuery");
+  axios
+    .get(`/search/products?query=${searchQuery}`)
+    .then((res) => {
+      if (res.data.success) {
+      }
+    })
+    .catch((error) => {
+      const message = error.response.data.message,
+        type = "error";
+      dispatch(showAlert({ message, type }));
+      if (error.response.data.status === "logout") {
+        localStorage.removeItem("authenticate");
+        navigate("/auth");
+      }
+    });
+};

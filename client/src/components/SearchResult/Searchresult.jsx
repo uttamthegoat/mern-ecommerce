@@ -11,11 +11,14 @@ const SearchResults = () => {
   const navigate = useNavigate();
   const searchState = useSelector(selectSearch);
   const [searchProducts, setSearchProducts] = useState([]);
+  const [showFilter, setShowFilter] = useState(false);
 
   React.useEffect(() => {
     search(setSearchProducts, navigate, dispatch);
     dispatch(closeForm());
   }, [searchState]);
+
+  const closeFilter = () => setShowFilter(false);
 
   return (
     <div className="w-full mb-8 md:mt-6 px-4">
@@ -25,7 +28,16 @@ const SearchResults = () => {
         </div>
         {/* filter form */}
         <div>
-          <FilterForm />
+          {!showFilter && (
+            <button
+              type="button"
+              className="text-blue-500 border border-blue-500 px-3 py-2 rounded-md"
+              onClick={() => setShowFilter(true)}
+            >
+              Filters
+            </button>
+          )}
+          {showFilter && <FilterForm closeFilter={closeFilter} />}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 md:gap-x-4 gap-y-6 md:px-0 mx-auto">
           {searchProducts.map((product) => (

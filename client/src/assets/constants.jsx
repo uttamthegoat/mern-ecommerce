@@ -53,3 +53,5 @@ export const contactMail = [
     mail: "sumanths947@gmail.com",
   },
 ];
+
+export const categories = ["Electronics", "Clothing", "Fashion"];
