@@ -22,12 +22,20 @@ export const search = (setSearchProducts, navigate, dispatch) => {
     });
 };
 
-export const filterProducts = (navigate, dispatch) => {
+export const filterProducts = (
+  filterCondition,
+  setSearchProducts,
+  navigate,
+  dispatch
+) => {
   const searchQuery = sessionStorage.getItem("searchQuery");
   axios
-    .get(`/search/products?query=${searchQuery}`)
+    .post(`/search/filter-products?query=${searchQuery}`, filterCondition)
     .then((res) => {
       if (res.data.success) {
+        console.log(res.data.products);
+        const { products } = res.data;
+        setSearchProducts([...products]);
       }
     })
     .catch((error) => {

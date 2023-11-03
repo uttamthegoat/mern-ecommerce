@@ -8,6 +8,7 @@ const { search, filterProduct } = require("../controllers/searchController");
 router.route("/products").get(authMiddleware, search);
 
 // filter products
-router.route("/filter-products").get(authMiddleware, filterProduct);
+// http://localhost:5001/api/search/filter-products?query=searchTerm
+router.route("/filter-products").post(authMiddleware, filterProduct);
 
 module.exports = router;

@@ -27,7 +27,7 @@ const SearchResults = () => {
           <h2 className="text-3xl font-semibold text-center">Search Results</h2>
         </div>
         {/* filter form */}
-        <div>
+        <div className="my-3 flex md:justify-end">
           {!showFilter && (
             <button
               type="button"
@@ -37,7 +37,7 @@ const SearchResults = () => {
               Filters
             </button>
           )}
-          {showFilter && <FilterForm closeFilter={closeFilter} />}
+          {showFilter && <FilterForm closeFilter={closeFilter} setSearchProducts={setSearchProducts}/>}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 md:gap-x-4 gap-y-6 md:px-0 mx-auto">
           {searchProducts.map((product) => (
