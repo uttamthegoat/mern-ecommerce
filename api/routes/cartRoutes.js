@@ -8,12 +8,12 @@ const{
 }=require("../controllers/cartController");
 
 // get all cart of a customer
-router.route("/get-cart/id").get(authMiddleware, getAllProductsInUserCart);
+router.route("/get-cart/:id").get(authMiddleware, getAllProductsInUserCart);
 
 // add all orders of a customer
-router.route("/add-cart").post(authMiddleware, addToCart);
+router.route("/add-cart/:id").post(authMiddleware, addToCart);
 
 // delete all orders of a customer
-router.route("/delete-cart/id").delete(authMiddleware, deleteProductFromCart);
+router.route("/delete-cart/:id").delete(authMiddleware, deleteProductFromCart);
 
 module.exports = router;
