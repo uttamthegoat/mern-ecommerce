@@ -38,7 +38,12 @@ export const addToWishlist = async (dispatch, navigate, productId) => {
   }
 };
 
-export const removeFromWishlist = async (dispatch, setWishlistProducts, navigate, productId) => {
+export const removeFromWishlist = async (
+  dispatch,
+  setWishlistProducts,
+  navigate,
+  productId
+) => {
   try {
     const response = await axios.delete(`/wishlist/remove/${productId}`);
     if (response.data.success) {

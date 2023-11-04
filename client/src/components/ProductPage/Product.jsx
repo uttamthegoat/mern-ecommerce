@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { place_Order } from "../Orders/apiCall";
 import { fetchProduct } from "../Admin/apiCall";
+import { addProductToCart } from "../Cart/apiCall";
 
 const ProductPage = ({ id }) => {
   const dispatch = useDispatch();
@@ -52,6 +53,10 @@ const ProductPage = ({ id }) => {
     place_Order(orderData, navigate, dispatch);
   };
 
+  const handleAddToCart = () => {
+    addProductToCart(id, productItem.price, navigate, dispatch);
+  };
+
   return (
     <div className="lg:flex lg:flex-row lg:justify-around lg:gap-16 lg: px-4 my-10 md:my-16">
       <div className="lg:w-2/4 w-full max-w-screen-lg mx-auto my-5 md:my-0">
@@ -91,7 +96,10 @@ const ProductPage = ({ id }) => {
           </button>
         </div>
         <div className="flex flex-row items-center justify-center gap-12">
-          <button className="bg-violet-800 text-white font-semibold py-3 w-28 rounded-xl">
+          <button
+            className="bg-violet-800 text-white font-semibold py-3 w-28 rounded-xl"
+            onClick={handleAddToCart}
+          >
             Add to Cart
           </button>
           <button

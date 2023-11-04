@@ -1,49 +1,29 @@
 import { faCartPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import {
-  addProductToCart,
-  removeProductFromCart,
-  getProductsInCart,
-} from "./apiCall"; // Import the API calls
+import { removeProductFromCart, getProductsInCart } from "./apiCall";
 
 const Cart = () => {
-  const [userAddress, setUserAddress] = useState({
-    street: "123 Main St",
-    city: "Cityville",
-    state: "State",
-    zip: "12345",
-  });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [userCart, setUserInCart] = useState({});
   const [productsInCart, setProductsInCart] = useState([]);
-  const [subtotal, setSubtotal] = useState(0);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await getProductsInCart();
-        setProductsInCart(response.items);
-        // Calculate subtotal based on product prices
-        const calculatedSubtotal = response.totalPrice;
-        setSubtotal(calculatedSubtotal);
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-    fetchData();
+    getProductsInCart(setProductsInCart, setUserInCart, navigate, dispatch);
   }, []);
 
-  const handleAddToCart = (productId) => {
-    // Call the addProductToCart function to add the product to the cart
-    addProductToCart(productId, setUserAddress, setProductsInCart, setSubtotal);
-  };
-
-  const handleRemoveFromCart = (productId) => {
+  const handleRemoveFromCart = (productId, price) => {
     removeProductFromCart(
       productId,
-      setUserAddress,
+      price,
       setProductsInCart,
-      setSubtotal
+      navigate,
+      dispatch
     );
   };
 
@@ -56,16 +36,15 @@ const Cart = () => {
         </h2>
       </div>
       <div className="md:col-span-1 my-6">
-        <h3 className="text-xl font-semibold ps-2 pb-2">Delivery Address</h3>
-        <div className="border-2 p-4">
-          <p>
-            {userAddress.street}, {userAddress.city}, {userAddress.state}-
-            {userAddress.zip}
+        <div className="border-2 p-4 flex items-center">
+          <h3 className="text-xl font-semibold ps-2">Delivery Address:</h3>
+          <p className="ps-2 text-xl">
+            {userCart.address || "No address mentioned."}
           </p>
         </div>
         <div>
           <p className="text-xl font-semibold mt-4 p-4">
-            Subtotal: ${subtotal.toFixed(2)}
+            Subtotal: ₹{userCart.totalPrice}
           </p>
           <p className="text-xl font-semibold p-4">
             Total Products in the cart: {productsInCart.length}
@@ -80,20 +59,27 @@ const Cart = () => {
           >
             <div className="w-44 mx-auto">
               <LazyLoadImage
-                src={product.product.image}
+                src={product.product.productImage}
                 alt={product.product.name}
                 className="object-cover mb-2"
               />
             </div>
             <hr className="border border-gray-300 w-11/12 mx-auto" />
-            <p className="font-semibold text-lg">{product.product.name}</p>
-            <p className="text-gray-600">${product.product.price}</p>
-            <button
-              onClick={() => handleRemoveFromCart(product.product._id)}
-              className="bg-red-500 text-white p-2 mt-2"
-            >
-              Remove from cart
-            </button>
+            <div className="ps-6">
+              <p className="font-semibold text-lg">{product.product.name}</p>
+              <p className="text-gray-600">₹{product.product.price}</p>
+              <button
+                onClick={() =>
+                  handleRemoveFromCart(
+                    product.product._id,
+                    product.product.price
+                  )
+                }
+                className="bg-red-500 text-white p-2 mt-2 rounded-md"
+              >
+                Remove from cart
+              </button>
+            </div>
           </div>
         ))}
       </div>
