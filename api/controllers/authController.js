@@ -4,6 +4,7 @@ const CustomError = require("../errors/CustomError");
 const generateToken = require("../utils/generateToken");
 const generateMail = require("../utils/generateMail");
 const Wishlist = require("../models/wishlist");
+const Cart = require("../models/cart");
 let globalOTP;
 
 // Register User
@@ -34,6 +35,13 @@ exports.registerUser = asyncHandler(async (req, res) => {
 
   const userWishlist = await Wishlist.create({
     user: user._id,
+    items: [],
+  });
+
+  const userCart = await Cart.create({
+    user: user._id,
+    totalPrice: 0,
+    address: "",
     items: [],
   });
 
