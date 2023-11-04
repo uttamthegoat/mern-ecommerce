@@ -30,6 +30,11 @@ const MyOrders = () => {
         <div className="w-9/12 mx-auto py-4 px-3">
           <h1 className="font-semibold">Displaying {totalOrders} orders</h1>
         </div>
+        {!orders.length && (
+        <div className="text-center text-3xl font-bold">
+          You don't have any orders.
+        </div>
+      )}
         <div className="all-order-objects space-y-6 px-2">
           {orders.map((order) => {
             return (

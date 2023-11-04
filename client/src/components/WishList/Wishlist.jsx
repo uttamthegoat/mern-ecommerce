@@ -35,7 +35,7 @@ const WishList = () => {
         {wishlistProducts.map((product) => (
           <div
             key={product._id}
-            className="border p-4 shadow-lg bg-gray-100 md:mx-auto md:w-4/6"
+            className="flex flex-col border p-4 shadow-lg bg-gray-100 md:mx-auto md:w-4/6"
           >
             <div className="w-44 mx-auto">
               <LazyLoadImage
@@ -49,7 +49,7 @@ const WishList = () => {
             <p className="font-semibold text-lg pl-10 text-red-400">
               ₹ {product.price}
             </p>
-            <div className="flex gap-4 justify-center mt-2">
+            <div className="flex gap-4 justify-center mt-auto">
               <button
                 className="bg-purple-500 text-white p-2 rounded-md"
                 onClick={() => handleRemoveFromWishlist(product._id)}

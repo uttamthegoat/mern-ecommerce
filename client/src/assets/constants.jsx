@@ -54,4 +54,4 @@ export const contactMail = [
   },
 ];
 
-export const categories = ["Electronics", "Clothing", "Fashion"];
+export const categories = ["Electronics", "Clothing", "Fashion", "Bags"];

@@ -37,7 +37,7 @@ function Admin() {
     setCategory("");
     setPrice(0);
     setQuantity(0);
-    setSelectedImage(null)
+    setSelectedImage(null);
   };
 
   const handleEditProductChange = (e) => {
@@ -307,7 +307,9 @@ function Admin() {
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-indigo-200">
-              <th className="p-3 text-gray-700 text-sm text-left">Name</th>
+              <th className="p-3 text-gray-700 text-sm text-left max-w-275">
+                Name
+              </th>
               <th className="p-3 text-gray-700 text-sm text-left">Price</th>
               <th className="p-3 text-gray-700 text-sm text-left">Quantity</th>
               <th className="p-3 text-gray-700 text-sm text-left">Category</th>
@@ -320,18 +322,18 @@ function Admin() {
           <tbody>
             {products.map((product) => {
               return (
-                <tr key={product._id}>
+                <tr key={product._id} className="">
                   <td
                     className="p-3 hover:text-indigo-700 truncate cursor-pointer"
                     title="product1"
                   >
                     {product.name}
                   </td>
-                  <td className="p-3">${product.price}</td>
+                  <td className="p-3">₹{product.price}</td>
                   <td className="p-3">{product.productInStock}</td>
                   <td className="p-3">{product.category}</td>
-                  <td className="p-3">{product.description}</td>
-                  <td className="p-3">
+                  <td className="p-3 w-[750px]">{product.description}</td>
+                  <td className="p-3 flex gap-4">
                     <button
                       type="button"
                       className="bg-indigo-700 text-white p-2 rounded hover:bg-indigo-800 text-sm"

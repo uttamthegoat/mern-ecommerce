@@ -27,7 +27,11 @@ const SearchResults = () => {
           <h2 className="text-3xl font-semibold text-center">Search Results</h2>
         </div>
         {/* filter form */}
-        <div className="my-3 flex md:justify-end">
+        <div
+          className={`my-3 flex md:justify-end ${
+            searchProducts.length ? "block" : "hidden"
+          }`}
+        >
           {!showFilter && (
             <button
               type="button"
@@ -37,8 +41,18 @@ const SearchResults = () => {
               Filters
             </button>
           )}
-          {showFilter && <FilterForm closeFilter={closeFilter} setSearchProducts={setSearchProducts}/>}
+          {showFilter && (
+            <FilterForm
+              closeFilter={closeFilter}
+              setSearchProducts={setSearchProducts}
+            />
+          )}
         </div>
+        {!searchProducts.length && (
+          <div className="text-center text-3xl font-bold">
+            No products were found.
+          </div>
+        )}
         <div className="grid grid-cols-1 md:grid-cols-3 md:gap-x-4 gap-y-6 md:px-0 mx-auto">
           {searchProducts.map((product) => (
             <SearchResultItem key={product._id} product={product} />

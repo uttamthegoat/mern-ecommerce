@@ -19,7 +19,7 @@ const SearchResultItem = ({ product }) => {
           className="w-full h-auto object-cover rounded-md"
         />
       </div>
-      <div className="flex-grow mt-6 sm:mt-0 sm:ml-4 sm:text-left">
+      <div className="flex flex-col flex-grow mt-6 sm:mt-0 sm:ml-4 sm:text-left">
         <h2 className="text-xl sm:text-2xl font-semibold mb-4">
           {product.name}
         </h2>
@@ -29,7 +29,7 @@ const SearchResultItem = ({ product }) => {
         <p className="text-2xl sm:text-lg text-gray-500 mb-3">
           Items in Stock: {product.productInStock}
         </p>
-        <div className="flex md:flex-row flex-col justify-around mt-3">
+        <div className="flex md:flex-row flex-col justify-around mt-auto">
           <Link
             to={`/product-page/${product._id}`}
             className="text-white bg-purple-500 border border-purple-600 py-2 px-2 md:px-4 rounded-md text-sm hover:bg-purple-600 hover:border-purple-700 text-center"
