@@ -48,18 +48,13 @@ exports.fetchProduct = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, product });
 });
 
-// Get all products
-exports.getProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find();
-  if (!products) throw new CustomError(400, false, "Products not found!");
-  // const { page, pageSize } = req.query;
-  // const startIndex = (page - 1) * pageSize;
-  // const lastIndex = page * pageSize;
+exports.getCategoryProducts = asyncHandler(async (req, res) => {
+  const { category } = req.params;
 
-  // const results = products.slice(startIndex, lastIndex);
-  const totalProducts = products.length;
+  const products = await Product.find({ category: category });
+  if (!products) throw new CustomError(400, false, "Products were not found!");
 
-  res.status(200).json({ success: true, totalProducts, results: products });
+  res.status(200).json({ success: true, products });
 });
 
 // Update a product

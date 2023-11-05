@@ -4,11 +4,11 @@ const router = express.Router();
 const authMiddleware = require("../middleware/authMiddleware");
 const {
   createProduct,
-  getProducts,
   updateProduct,
   deleteProduct,
   fetchProduct,
   getProductsAdmin,
+  getCategoryProducts,
 } = require("../controllers/productController");
 const verifyAdmin = require("../middleware/verifyAdmin");
 const upload = multer();
@@ -18,10 +18,12 @@ router
   .route("/create-product")
   .post(authMiddleware, verifyAdmin, upload.single("file"), createProduct);
 
-//get all products:  https://localhost:5002/api/products/all-products?page=1&pageSize=1
-router.route("/all-products").get(authMiddleware, getProducts);
+//get all products:  https://localhost:5002/api/products/get-products/:fashion
+router
+  .route("/get-products/:category")
+  .get(authMiddleware, getCategoryProducts);
 
-//get all products for admin:  https://localhost:5002/api/products/all-products-a
+//get all products for admin
 router
   .route("/all-products-a")
   .get(authMiddleware, verifyAdmin, getProductsAdmin);
