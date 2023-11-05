@@ -125,3 +125,28 @@ export const deleteProduct = (id, navigate, dispatch) => {
       }
     });
 };
+
+export const fetchHomeProducts = (
+  category,
+  setProducts,
+  navigate,
+  dispatch
+) => {
+  axios
+    .get(`/products/get-products/${category}`)
+    .then((res) => {
+      if (res.data.success) {
+        const { products } = res.data;
+        setProducts([...products]);
+      }
+    })
+    .catch((error) => {
+      const message = error.response.data.message,
+        type = "error";
+      dispatch(showAlert({ message, type }));
+      if (error.response.data.status === "logout") {
+        localStorage.removeItem("authenticate");
+        navigate("/auth");
+      }
+    });
+};
