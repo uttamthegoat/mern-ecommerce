@@ -60,7 +60,7 @@ const HomePage = ({ category }) => {
                 </div>
                 <div className="flex flex-col px-6">
                   <span>
-                    <span className="font-bold text-2xl text-blue-800">
+                    <span className="font-bold text-2xl text-blue-800 line-clamp-2">
                       {product.name}
                     </span>
                   </span>

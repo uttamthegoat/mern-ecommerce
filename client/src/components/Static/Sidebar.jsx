@@ -111,11 +111,6 @@ const Sidebar = () => {
                 Products
               </Link>
             </section>
-            <section className="hover:text-white">
-              <Link to="/admin/orders" className="font-semibold">
-                Orders
-              </Link>
-            </section>
           </div>
         </div>
       )}
