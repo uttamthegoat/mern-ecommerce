@@ -27,71 +27,7 @@ const HomePage = ({ category }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [products, setProducts] = React.useState([
-    {
-      id: 1,
-      name: "Product 1",
-      productImage:
-        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.cnHsK8bcMIiT_5_ED0cckAHaHN%26pid%3DApi&f=1&ipt=cbb60fa1ef5eeaa2b739d17c0d2544579fd174717d504fbe28eaf8b517418169&ipo=images",
-      price: 50.0,
-      description:
-        "kjsj sdh lorem10 shdb fwhyebfiwe wiebfwuif wibwe weubfg wfiuw wonwof wwhe cfhw9wf we8whn9wfc weuwbf cfwubw wciubwcf waijxa w9hw wonwc ncowewhwf cownicw",
-    },
-    {
-      id: 2,
-      name: "Product 2",
-      productImage:
-        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.cnHsK8bcMIiT_5_ED0cckAHaHN%26pid%3DApi&f=1&ipt=cbb60fa1ef5eeaa2b739d17c0d2544579fd174717d504fbe28eaf8b517418169&ipo=images",
-      price: 75.0,
-      description:
-        "kjsj sdh lorem10 shdb fwhyebfiwe wiebfwuif wibwe weubfg wfiuw wonwof wwhe cfhw9wf we8whn9wfc weuwbf cfwubw wciubwcf waijxa w9hw wonwc ncowewhwf cownicw",
-    },
-    {
-      id: 3,
-      name: "Product 3",
-      productImage:
-        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.cnHsK8bcMIiT_5_ED0cckAHaHN%26pid%3DApi&f=1&ipt=cbb60fa1ef5eeaa2b739d17c0d2544579fd174717d504fbe28eaf8b517418169&ipo=images",
-      price: 60.0,
-      description:
-        "kjsj sdh lorem10 shdb fwhyebfiwe wiebfwuif wibwe weubfg wfiuw wonwof wwhe cfhw9wf we8whn9wfc weuwbf cfwubw wciubwcf waijxa w9hw wonwc ncowewhwf cownicw",
-    },
-    {
-      id: 4,
-      name: "Product 1",
-      productImage:
-        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.cnHsK8bcMIiT_5_ED0cckAHaHN%26pid%3DApi&f=1&ipt=cbb60fa1ef5eeaa2b739d17c0d2544579fd174717d504fbe28eaf8b517418169&ipo=images",
-      price: 50.0,
-      description:
-        "kjsj sdh lorem10 shdb fwhyebfiwe wiebfwuif wibwe weubfg wfiuw wonwof wwhe cfhw9wf we8whn9wfc weuwbf cfwubw wciubwcf waijxa w9hw wonwc ncowewhwf cownicw",
-    },
-    {
-      id: 5,
-      name: "Product 1",
-      productImage:
-        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.cnHsK8bcMIiT_5_ED0cckAHaHN%26pid%3DApi&f=1&ipt=cbb60fa1ef5eeaa2b739d17c0d2544579fd174717d504fbe28eaf8b517418169&ipo=images",
-      price: 50.0,
-      description:
-        "kjsj sdh lorem10 shdb fwhyebfiwe wiebfwuif wibwe weubfg wfiuw wonwof wwhe cfhw9wf we8whn9wfc weuwbf cfwubw wciubwcf waijxa w9hw wonwc ncowewhwf cownicw",
-    },
-    {
-      id: 6,
-      name: "Product 1",
-      productImage:
-        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.cnHsK8bcMIiT_5_ED0cckAHaHN%26pid%3DApi&f=1&ipt=cbb60fa1ef5eeaa2b739d17c0d2544579fd174717d504fbe28eaf8b517418169&ipo=images",
-      price: 50.0,
-      description:
-        "kjsj sdh lorem10 shdb fwhyebfiwe wiebfwuif wibwe weubfg wfiuw wonwof wwhe cfhw9wf we8whn9wfc weuwbf cfwubw wciubwcf waijxa w9hw wonwc ncowewhwf cownicw",
-    },
-    {
-      id: 7,
-      name: "Product 1",
-      productImage:
-        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.explicit.bing.net%2Fth%3Fid%3DOIP.cnHsK8bcMIiT_5_ED0cckAHaHN%26pid%3DApi&f=1&ipt=cbb60fa1ef5eeaa2b739d17c0d2544579fd174717d504fbe28eaf8b517418169&ipo=images",
-      price: 50.0,
-      description:
-        "kjsj sdh lorem10 shdb fwhyebfiwe wiebfwuif wibwe weubfg wfiuw wonwof wwhe cfhw9wf we8whn9wfc weuwbf cfwubw wciubwcf waijxa w9hw wonwc ncowewhwf cownicw",
-    },
-  ]);
+  const [products, setProducts] = React.useState([]);
 
   React.useEffect(() => {
     fetchHomeProducts(category, setProducts, navigate, dispatch);
