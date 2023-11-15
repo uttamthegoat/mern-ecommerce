@@ -10,9 +10,9 @@ const generateToken = (res, userId) => {
 
   res.cookie("access_token", token, {
     httpOnly: true,
-    sameSite: "lax",
-    // secure: true,    //for deployment
-    // sameSite: "none",    //for deployment
+    // sameSite: "lax",
+    secure: true,    //for deployment
+    sameSite: "none",    //for deployment
     path: "/",
     expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
   });
