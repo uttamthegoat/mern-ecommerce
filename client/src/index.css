@@ -23,6 +23,7 @@ body {
   overflow-x: auto;
 }
 
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -35,7 +36,7 @@ body {
 /* Handle styles */
 ::-webkit-scrollbar-thumb {
   background: #888;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 /* Handle on hover */
@@ -45,4 +46,13 @@ body {
 
 ::-webkit-scrollbar-button {
   display: none;
+}
+
+@media (max-width: 425px) {
+  body {
+    width: calc(100vw - 2px);
+  }
+  ::-webkit-scrollbar {
+    width: 2px;
+  }
 }
