@@ -4,6 +4,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 const Order = require("../models/order");
 const Product = require("../models/products");
 
+//getting all orders 
 exports.getAllOrders = asyncHandler(async (req, res) => {
   const id = req.user._id;
 
@@ -15,6 +16,7 @@ exports.getAllOrders = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, orders: reversedOrders });
 });
 
+// getting a single order 
 exports.getOrder = asyncHandler(async (req, res) => {
   const { id } = req.params;
 
@@ -24,6 +26,7 @@ exports.getOrder = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, order });
 });
 
+//order placement
 exports.placeOrder = asyncHandler(async (req, res) => {
   const { orderDate, product, quantity, price } = req.body;
   const id = req.user._id;
@@ -60,6 +63,7 @@ exports.placeOrder = asyncHandler(async (req, res) => {
   });
 });
 
+//order cancel
 exports.cancelOrder = asyncHandler(async (req, res) => {
   const { id } = req.params;
 

@@ -55,7 +55,7 @@ exports.registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-//generate token
+//generate token route
 //@route POST api/auth/generate-otp
 exports.generateOTP = asyncHandler(async (req, res) => {
   const { email } = req.body;
@@ -68,7 +68,7 @@ exports.generateOTP = asyncHandler(async (req, res) => {
   res.json({ success: true, message: "Check your mail for OTP." });
 });
 
-//verify token
+//verify token route
 //@route POST api/auth/verify-otp
 exports.verifyOTP = asyncHandler(async (req, res) => {
   const receivedOTP = req.body.otp;
@@ -84,7 +84,7 @@ exports.verifyOTP = asyncHandler(async (req, res) => {
   }
 });
 
-//Login User
+//Login User route
 //@route POST api/auth/login
 exports.loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -105,7 +105,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
   });
 });
 
-//logout user
+//logout  route
 //@route POST api/auth/logout
 exports.logoutUser = asyncHandler(async (req, res) => {
   res.clearCookie("access_token", { httpOnly: true, expires: new Date(0) });

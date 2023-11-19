@@ -2,6 +2,7 @@ const CustomError = require("../errors/CustomError");
 const asyncHandler = require("../middleware/asyncHandler");
 const Cart = require("../models/cart");
 
+//getting all rpoducts in the user cart
 exports.getAllProductsInUserCart = asyncHandler(async (req, res) => {
   const userCart = await Cart.findOne({ user: req.user._id }).populate(
     "items.product"
@@ -11,6 +12,7 @@ exports.getAllProductsInUserCart = asyncHandler(async (req, res) => {
   res.status(200).json({ success: true, results: userCart });
 });
 
+//adding product in to the cart
 exports.addToCart = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   const { productId } = req.params;
@@ -40,6 +42,7 @@ exports.addToCart = asyncHandler(async (req, res) => {
     .json({ success: true, message: "Product added to the cart." });
 });
 
+//deleting rpoduct from ther cart
 exports.deleteProductFromCart = asyncHandler(async (req, res) => {
   const userId = req.user._id;
   const productId = req.params.id;
