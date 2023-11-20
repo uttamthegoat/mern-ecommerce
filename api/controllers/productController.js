@@ -3,7 +3,7 @@ const asyncHandler = require("../middleware/asyncHandler");
 const Product = require("../models/products");
 const uploadImage = require("../utils/imageUpload");
 
-// Create a new product
+// Create a new product 
 exports.createProduct = asyncHandler(async (req, res) => {
   const { name, description, category, price, productInStock } = req.body;
 
@@ -40,7 +40,7 @@ exports.createProduct = asyncHandler(async (req, res) => {
   });
 });
 
-// Get a specific product
+// Get a specific product from the list
 exports.fetchProduct = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const product = await Product.findById(id);

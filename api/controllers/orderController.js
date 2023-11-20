@@ -84,6 +84,7 @@ exports.cancelOrder = asyncHandler(async (req, res) => {
     .json({ success: true, message: "Your order has been cancelled!" });
 });
 
+//changing status of the order 
 exports.changeStatus = asyncHandler(async (req, res) => {
   const { id, state } = req.body;
 
