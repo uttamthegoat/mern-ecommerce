@@ -8,8 +8,9 @@ export const login_User = (loginDet, navigate, dispatch) => {
     .then((res) => {
       if (res.data.success) {
         localStorage.setItem("authenticate", true);
-        const message = res.data.message,
+        const { message, user } = res.data,
           type = "success";
+        dispatch(getUserInfo(user));
         dispatch(showAlert({ message, type }));
         navigate("/");
       }
