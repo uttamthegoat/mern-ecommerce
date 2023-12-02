@@ -8,7 +8,7 @@ const generateMail = async (email,otp) => {
     secure: true,
     auth: {
       user: "ecomm561@gmail.com",
-      pass: "hgqiiazeqjsaykhf",
+      pass: process.env.pass,
     },
     tls: {
       rejectUnauthorized: false,
