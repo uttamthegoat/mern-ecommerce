@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const generateMail = async (email,otp) => {
+const generateMail = async (email, otp) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",
@@ -32,7 +32,7 @@ const generateMail = async (email,otp) => {
     
     Once you've entered the OTP successfully, you'll gain access to all the exciting features and content on our website. We're confident that you'll have a great experience with us!
     
-    Thank you for choosing BuyBox. We look forward to seeing you online and hope you enjoy your time with us.`,
+    Thank you for choosing BuyBox. We look forward to seeing you online and hope you enjoy your time with us.Date: ${new Date().toLocaleTimeString()}`,
   };
 
   // Send the email
