@@ -4,7 +4,7 @@ import { filterProducts } from "../SearchResult/apiCall";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-const FilterForm = ({ closeFilter,setSearchProducts }) => {
+const FilterForm = ({ closeFilter, setSearchProducts }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [filterCondition, setFilterCondition] = useState({
