@@ -30,7 +30,7 @@ app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/search", require("./routes/searchRoutes"));
 app.use("/api/orders", require("./routes/orderRoutes"));
 app.use("/api/wishlist", require("./routes/wishlistRoutes"));
-app.use("/api/cart",require("./routes/cartRoutes"))
+app.use("/api/cart", require("./routes/cartRoutes"));
 app.get("/", (req, res) => {
   res.send("Welcome to BuyBox server!");
 });

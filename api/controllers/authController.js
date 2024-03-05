@@ -64,7 +64,7 @@ exports.generateOTP = asyncHandler(async (req, res) => {
   const otp = Math.floor(100000 + Math.random() * 900000);
   globalOTP = otp.toString();
   //send this otp code to the email as planned
-  generateMail(email, otp);
+  await generateMail(email, otp);
   res.json({ success: true, message: "Check your mail for OTP." });
 });
 
